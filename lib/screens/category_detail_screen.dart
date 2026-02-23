@@ -7,16 +7,30 @@ import '../models/vocab.dart';
 import 'add_vocab_screen.dart';
 import 'vocab_detail_screen.dart';
 
-class CategoryDetailScreen extends StatelessWidget {
+class CategoryDetailScreen extends StatefulWidget {
   final Category category;
 
   const CategoryDetailScreen({super.key, required this.category});
 
   @override
+  State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
+}
+
+class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Load vocabularies for this category when the screen is opened
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<VocabCubit>().loadVocabs(categoryId: widget.category.id);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(category.name),
+        middle: Text(widget.category.name),
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () => _showAddVocab(context),
@@ -32,9 +46,9 @@ class CategoryDetailScreen extends StatelessWidget {
 
             if (state is VocabLoaded) {
               final vocabs = state.vocabs
-                  .where((v) => v.categoryId == category.id)
+                  .where((v) => v.categoryId == widget.category.id)
                   .toList();
-              
+
               if (vocabs.isEmpty) {
                 return const Center(
                   child: Text('Chưa có từ vựng nào. Hãy thêm mới!'),
@@ -49,6 +63,10 @@ class CategoryDetailScreen extends StatelessWidget {
               );
             }
 
+            if (state is VocabError) {
+              return Center(child: Text('Lỗi: ${state.message}'));
+            }
+
             return const SizedBox.shrink();
           },
         ),
@@ -59,7 +77,28 @@ class CategoryDetailScreen extends StatelessWidget {
   Widget _buildVocabItem(BuildContext context, Vocab vocab) {
     return CupertinoListTile(
       leading: _buildVocabImage(vocab),
-      title: Text(vocab.word),
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(vocab.word),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            decoration: BoxDecoration(
+              color: Color(vocab.statusColor).withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              vocab.studyStatus,
+              style: TextStyle(
+                fontSize: 11,
+                color: Color(vocab.statusColor),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
       subtitle: Text(vocab.meaning),
       trailing: CupertinoButton(
         padding: EdgeInsets.zero,
@@ -99,7 +138,7 @@ class CategoryDetailScreen extends StatelessWidget {
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => AddVocabScreen(category: category),
+        builder: (context) => AddVocabScreen(category: widget.category),
       ),
     );
   }
@@ -118,7 +157,10 @@ class CategoryDetailScreen extends StatelessWidget {
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () {
-              context.read<VocabCubit>().deleteVocab(vocab.id, categoryId: category.id);
+              context.read<VocabCubit>().deleteVocab(
+                vocab.id,
+                categoryId: widget.category.id,
+              );
               Navigator.pop(context);
             },
             child: const Text('Xóa'),

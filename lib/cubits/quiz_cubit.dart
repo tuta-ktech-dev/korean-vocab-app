@@ -58,57 +58,63 @@ class QuizCubit extends Cubit<QuizState> {
   Future<void> submitAnswer(QuizResult result) async {
     if (_currentSession == null || state is! QuizQuestion) return;
     
-    final vocabId = _currentSession!.currentVocabId;
-    final vocab = _vocabMap[vocabId]!;
-    
-    // Cập nhật session
-    _currentSession!.vocabAttempts[vocabId] = 
-        (_currentSession!.vocabAttempts[vocabId] ?? 0) + 1;
-    
-    switch (result) {
-      case QuizResult.correct:
-        _currentSession!.correctCount++;
-        break;
-      case QuizResult.incorrect:
-        _currentSession!.incorrectCount++;
-        break;
-      case QuizResult.skip:
-        _currentSession!.skippedCount++;
-        break;
-      case QuizResult.hint:
-        break;
-    }
-    
-    // Tính next review và cập nhật vocab
-    final nextReview = _srsService.calculateNextReview(vocab, result);
-    
-    final updatedVocab = vocab.copyWith(
-      nextReview: nextReview,
-      totalReviews: vocab.totalReviews + 1,
-      correctCount: result == QuizResult.correct 
-          ? vocab.correctCount + 1 
-          : vocab.correctCount,
-      accuracy: _srsService.calculateAccuracy(
-        result == QuizResult.correct 
+    try {
+      final vocabId = _currentSession!.currentVocabId;
+      final vocab = _vocabMap[vocabId]!;
+      
+      // Cập nhật session
+      _currentSession!.vocabAttempts[vocabId] = 
+          (_currentSession!.vocabAttempts[vocabId] ?? 0) + 1;
+      
+      switch (result) {
+        case QuizResult.correct:
+          _currentSession!.correctCount++;
+          break;
+        case QuizResult.incorrect:
+          _currentSession!.incorrectCount++;
+          break;
+        case QuizResult.skip:
+          _currentSession!.skippedCount++;
+          break;
+        case QuizResult.hint:
+          break;
+      }
+      
+      // Tính next review và cập nhật vocab
+      final nextReview = _srsService.calculateNextReview(vocab, result);
+      
+      final updatedVocab = vocab.copyWith(
+        nextReview: nextReview,
+        totalReviews: vocab.totalReviews + 1,
+        correctCount: result == QuizResult.correct 
             ? vocab.correctCount + 1 
             : vocab.correctCount,
-        vocab.totalReviews + 1,
-      ),
-      lastReviewed: DateTime.now(),
-      familiarity: _calculateFamiliarity(vocab, result),
-      streak: _calculateStreak(vocab, result),
-    );
-    
-    // Lưu vào DB
-    await _vocabRepository.updateVocab(updatedVocab);
-    _vocabMap[vocabId] = updatedVocab;
-    
-    // Hiển thị feedback
-    emit(QuizFeedback(
-      vocab: updatedVocab,
-      result: result,
-      nextReview: nextReview,
-    ));
+        accuracy: _srsService.calculateAccuracy(
+          result == QuizResult.correct 
+              ? vocab.correctCount + 1 
+              : vocab.correctCount,
+          vocab.totalReviews + 1,
+        ),
+        lastReviewed: DateTime.now(),
+        familiarity: _calculateFamiliarity(vocab, result),
+        streak: _calculateStreak(vocab, result),
+      );
+      
+      // Lưu vào DB
+      await _vocabRepository.updateVocab(updatedVocab);
+      _vocabMap[vocabId] = updatedVocab;
+      
+      // Hiển thị feedback
+      emit(QuizFeedback(
+        vocab: updatedVocab,
+        result: result,
+        nextReview: nextReview,
+      ));
+    } catch (e, stackTrace) {
+      print('Error in submitAnswer: $e');
+      print('Stack trace: $stackTrace');
+      emit(QuizError('Lỗi: $e'));
+    }
   }
 
   /// Chuyển sang câu tiếp theo

@@ -132,4 +132,37 @@ class Vocab {
       timeSpent: timeSpent ?? this.timeSpent,
     );
   }
+
+  /// Kiểm tra trạng thái học của từ vựng
+  String get studyStatus {
+    if (totalReviews == 0) {
+      return 'Chưa học';
+    } else if (familiarity == 0) {
+      return 'Mới';
+    } else if (familiarity == 1) {
+      return 'Đang học';
+    } else if (familiarity == 2) {
+      return 'Ôn tập';
+    } else {
+      return 'Đã thuộc';
+    }
+  }
+
+  /// Màu sắc cho trạng thái
+  int get statusColor {
+    switch (studyStatus) {
+      case 'Chưa học':
+        return 0xFF9E9E9E; // Grey
+      case 'Mới':
+        return 0xFF2196F3; // Blue
+      case 'Đang học':
+        return 0xFFFF9800; // Orange
+      case 'Ôn tập':
+        return 0xFF4CAF50; // Green
+      case 'Đã thuộc':
+        return 0xFF9C27B0; // Purple
+      default:
+        return 0xFF9E9E9E;
+    }
+  }
 }
