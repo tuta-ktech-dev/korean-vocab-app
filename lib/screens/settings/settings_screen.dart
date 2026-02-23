@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import '../vocab/difficult_words_screen.dart';
-import '../statistics/statistics_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -12,34 +10,6 @@ class SettingsScreen extends StatelessWidget {
       child: SafeArea(
         child: ListView(
           children: [
-            _buildSectionHeader('Học tập'),
-            _buildSettingsTile(
-              icon: CupertinoIcons.chart_bar_fill,
-              title: 'Thống kê',
-              subtitle: 'Xem tiến độ học tập',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const StatisticsScreen(),
-                  ),
-                );
-              },
-            ),
-            _buildSettingsTile(
-              icon: CupertinoIcons.exclamationmark_triangle_fill,
-              title: 'Từ cần ôn lại',
-              subtitle: 'Danh sách từ chưa thuộc',
-              color: CupertinoColors.systemRed,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const DifficultWordsScreen(),
-                  ),
-                );
-              },
-            ),
             _buildSectionHeader('Thông tin'),
             _buildSettingsTile(
               icon: CupertinoIcons.info_circle_fill,

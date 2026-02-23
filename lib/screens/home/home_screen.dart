@@ -7,7 +7,6 @@ import '../vocab/category_detail_screen.dart';
 import '../vocab/add_category_screen.dart';
 import '../study/study_screen.dart';
 import '../quiz/quiz_setup_screen.dart';
-import '../settings/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,16 +16,6 @@ class HomeScreen extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: const Text('Từ vựng tiếng Hàn'),
-        leading: CupertinoButton(
-          padding: EdgeInsets.zero,
-          onPressed: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(builder: (context) => const SettingsScreen()),
-            );
-          },
-          child: const Icon(CupertinoIcons.settings),
-        ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

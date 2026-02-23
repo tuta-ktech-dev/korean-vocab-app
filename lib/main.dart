@@ -5,7 +5,7 @@ import 'repositories/vocab_repository.dart';
 import 'cubits/category_cubit.dart';
 import 'cubits/vocab_cubit.dart';
 import 'cubits/quiz_cubit.dart';
-import 'screens/home/home_screen.dart';
+import 'screens/main_tab_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             primaryColor: CupertinoColors.systemBlue,
             brightness: Brightness.light,
           ),
-          home: HomeScreen(),
+          home: MainTabScreen(),
           debugShowCheckedModeBanner: false,
         ),
       ),
