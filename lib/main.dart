@@ -6,6 +6,7 @@ import 'cubits/category_cubit.dart';
 import 'cubits/vocab_cubit.dart';
 import 'cubits/quiz_cubit.dart';
 import 'screens/main_tab_screen.dart';
+import 'screens/onboarding/auth_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,13 +38,16 @@ class MyApp extends StatelessWidget {
             create: (context) => QuizCubit(context.read<VocabRepository>()),
           ),
         ],
-        child: const CupertinoApp(
+        child: CupertinoApp(
           title: 'Từ vựng tiếng Hàn',
-          theme: CupertinoThemeData(
+          theme: const CupertinoThemeData(
             primaryColor: CupertinoColors.systemBlue,
             brightness: Brightness.light,
           ),
-          home: MainTabScreen(),
+          home: const AuthWrapper(),
+          routes: {
+            '/home': (context) => const MainTabScreen(),
+          },
           debugShowCheckedModeBanner: false,
         ),
       ),

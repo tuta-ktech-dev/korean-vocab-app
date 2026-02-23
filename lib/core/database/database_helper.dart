@@ -218,4 +218,67 @@ class DatabaseHelper {
     _database = null;
     await database;
   }
+
+  /// Export all data to JSON format
+  Future<Map<String, dynamic>> exportData() async {
+    final db = await database;
+
+    // Get all categories
+    final categories = await db.query('categories');
+
+    // Get all vocabularies
+    final vocabularies = await db.query('vocabularies');
+
+    return {
+      'export_date': DateTime.now().toIso8601String(),
+      'app_version': '3.9.0',
+      'categories': categories,
+      'vocabularies': vocabularies,
+    };
+  }
+
+  /// Import data from JSON format
+  /// Returns: {'success': true/false, 'imported_categories': n, 'imported_vocabularies': n}
+  Future<Map<String, dynamic>> importData(Map<String, dynamic> data) async {
+    final db = await database;
+
+    int importedCategories = 0;
+    int importedVocabularies = 0;
+
+    await db.transaction((txn) async {
+      // Clear existing data
+      await txn.delete('vocabularies');
+      await txn.delete('categories');
+
+      final batch = txn.batch();
+
+      // Import categories
+      final categories = data['categories'] as List<dynamic>?;
+      if (categories != null) {
+        for (final cat in categories) {
+          final categoryMap = Map<String, dynamic>.from(cat);
+          batch.insert('categories', categoryMap);
+          importedCategories++;
+        }
+      }
+
+      // Import vocabularies
+      final vocabularies = data['vocabularies'] as List<dynamic>?;
+      if (vocabularies != null) {
+        for (final vocab in vocabularies) {
+          final vocabMap = Map<String, dynamic>.from(vocab);
+          batch.insert('vocabularies', vocabMap);
+          importedVocabularies++;
+        }
+      }
+
+      await batch.commit(noResult: true);
+    });
+
+    return {
+      'success': true,
+      'imported_categories': importedCategories,
+      'imported_vocabularies': importedVocabularies,
+    };
+  }
 }
