@@ -22,7 +22,11 @@ class _StudyScreenState extends State<StudyScreen> {
   void initState() {
     super.initState();
     _initTts();
-    context.read<VocabCubit>().loadVocabs(categoryId: widget.categoryId);
+    // Global VocabCubit đã load all rồi. Reload nếu state chưa sẵn sàng.
+    final currentState = context.read<VocabCubit>().state;
+    if (currentState is! VocabLoaded) {
+      context.read<VocabCubit>().loadVocabs();
+    }
   }
 
   Future<void> _initTts() async {
@@ -55,7 +59,9 @@ class _StudyScreenState extends State<StudyScreen> {
 
             if (state is VocabLoaded) {
               final vocabs = widget.categoryId != null
-                  ? state.vocabs.where((v) => v.categoryId == widget.categoryId).toList()
+                  ? state.vocabs
+                        .where((v) => v.categoryId == widget.categoryId)
+                        .toList()
                   : state.vocabs;
 
               if (vocabs.isEmpty) {

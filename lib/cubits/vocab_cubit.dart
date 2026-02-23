@@ -54,7 +54,7 @@ class VocabCubit extends Cubit<VocabState> {
         createdAt: DateTime.now(),
       );
       await _repository.insertVocab(vocab);
-      await loadVocabs(categoryId: categoryId);
+      await loadVocabs(); // Reload all để không corrupt global state
     } catch (e) {
       emit(VocabError(e.toString()));
     }
@@ -63,7 +63,7 @@ class VocabCubit extends Cubit<VocabState> {
   Future<void> deleteVocab(String id, {String? categoryId}) async {
     try {
       await _repository.deleteVocab(id);
-      await loadVocabs(categoryId: categoryId);
+      await loadVocabs(); // Reload all
     } catch (e) {
       emit(VocabError(e.toString()));
     }
@@ -72,7 +72,7 @@ class VocabCubit extends Cubit<VocabState> {
   Future<void> updateVocab(Vocab vocab) async {
     try {
       await _repository.updateVocab(vocab);
-      await loadVocabs(categoryId: vocab.categoryId);
+      await loadVocabs(); // Reload all
     } catch (e) {
       emit(VocabError(e.toString()));
     }

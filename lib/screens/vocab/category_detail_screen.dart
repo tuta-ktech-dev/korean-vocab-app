@@ -22,9 +22,12 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   @override
   void initState() {
     super.initState();
-    // Load vocabularies for this category when the screen is opened
+    // Global VocabCubit đã load all rồi. Chỉ trigger reload nếu state chưa có gì.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<VocabCubit>().loadVocabs(categoryId: widget.category.id);
+      final state = context.read<VocabCubit>().state;
+      if (state is! VocabLoaded) {
+        context.read<VocabCubit>().loadVocabs();
+      }
     });
   }
 
@@ -274,10 +277,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () {
-              context.read<VocabCubit>().deleteVocab(
-                vocab.id,
-                categoryId: widget.category.id,
-              );
+              context.read<VocabCubit>().deleteVocab(vocab.id);
               Navigator.pop(context);
             },
             child: const Text('Xóa'),

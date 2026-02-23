@@ -2,10 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../cubits/vocab_cubit.dart';
 import '../../models/vocab.dart';
-import '../quiz/quiz_screen.dart';
+import '../quiz/quiz_setup_screen.dart';
 
-class DifficultWordsScreen extends StatelessWidget {
+class DifficultWordsScreen extends StatefulWidget {
   const DifficultWordsScreen({super.key});
+
+  @override
+  State<DifficultWordsScreen> createState() => _DifficultWordsScreenState();
+}
+
+class _DifficultWordsScreenState extends State<DifficultWordsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Global VocabCubit load all. Trigger nếu chưa có data.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final state = context.read<VocabCubit>().state;
+      if (state is! VocabLoaded) {
+        context.read<VocabCubit>().loadVocabs();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,12 +185,11 @@ class DifficultWordsScreen extends StatelessWidget {
         child: CupertinoButton.filled(
           padding: const EdgeInsets.symmetric(vertical: 16),
           onPressed: () {
-            // Start quiz with difficult words only
             Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) =>
-                    QuizScreen(wordCount: words.length.clamp(5, 20)),
+                    const QuizSetupScreen(mode: QuizSetupMode.review),
               ),
             );
           },

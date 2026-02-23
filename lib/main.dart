@@ -29,7 +29,9 @@ class MyApp extends StatelessWidget {
                   ..loadCategories(),
           ),
           BlocProvider(
-            create: (context) => VocabCubit(context.read<VocabRepository>()),
+            create: (context) =>
+                VocabCubit(context.read<VocabRepository>())
+                  ..loadVocabs(), // Load all vocabs globally on startup
           ),
           BlocProvider(
             create: (context) => QuizCubit(context.read<VocabRepository>()),
