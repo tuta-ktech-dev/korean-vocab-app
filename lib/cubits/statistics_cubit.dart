@@ -24,35 +24,51 @@ class StatisticsCubit extends Cubit<StatisticsState> {
   }
 
   Map<String, dynamic> _computeStats(List<Vocab> vocabs) {
-    final total = vocabs.length;
-    final studied = vocabs.where((v) => v.totalReviews > 0).length;
-    final mastered = vocabs.where((v) => v.familiarity >= 3).length;
-    final learning = vocabs
-        .where((v) => v.familiarity > 0 && v.familiarity < 3)
-        .length;
-    final notStudied = vocabs.where((v) => v.totalReviews == 0).length;
+    final now = DateTime.now();
 
-    final totalReviews = vocabs.fold(0, (sum, v) => sum + v.totalReviews);
-    final avgAccuracy = studied > 0
-        ? vocabs
-                  .where((v) => v.totalReviews > 0)
-                  .fold(0.0, (sum, v) => sum + v.accuracy) /
-              studied
-        : 0.0;
-    final maxStreak = vocabs.fold(
-      0,
-      (max, v) => v.streak > max ? v.streak : max,
-    );
+    int notStarted = 0;
+    int newCount = 0;
+    int learning = 0;
+    int reviewing = 0;
+    int mastered = 0;
+    int totalReviews = 0;
+    double totalAccuracy = 0;
+    int dueToday = 0;
+
+    for (final vocab in vocabs) {
+      if (vocab.totalReviews == 0) {
+        notStarted++;
+      } else if (vocab.familiarity == 0) {
+        newCount++;
+      } else if (vocab.familiarity == 1) {
+        learning++;
+      } else if (vocab.familiarity == 2) {
+        reviewing++;
+      } else {
+        mastered++;
+      }
+
+      totalReviews += vocab.totalReviews;
+      totalAccuracy += vocab.accuracy;
+
+      if (vocab.nextReview != null &&
+          vocab.nextReview!.isBefore(now.add(const Duration(days: 1)))) {
+        dueToday++;
+      }
+    }
 
     return {
-      'total': total,
-      'studied': studied,
-      'mastered': mastered,
+      'total': vocabs.length,
+      'notStarted': notStarted,
+      'new': newCount,
       'learning': learning,
-      'notStudied': notStudied,
+      'reviewing': reviewing,
+      'mastered': mastered,
       'totalReviews': totalReviews,
-      'avgAccuracy': avgAccuracy,
-      'maxStreak': maxStreak,
+      'averageAccuracy': vocabs.isNotEmpty
+          ? (totalAccuracy / vocabs.length * 100).toInt()
+          : 0,
+      'dueToday': dueToday,
     };
   }
 }
