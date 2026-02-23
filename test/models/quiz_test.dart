@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:korean_vocab/models/vocab.dart';
 import 'package:korean_vocab/models/quiz.dart';
 
 // Mock Database

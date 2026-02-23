@@ -58,7 +58,6 @@ class QuizCubit extends Cubit<QuizState> {
   Future<void> submitAnswer(QuizResult result) async {
     if (_currentSession == null || state is! QuizQuestion) return;
     
-    final currentState = state as QuizQuestion;
     final vocabId = _currentSession!.currentVocabId;
     final vocab = _vocabMap[vocabId]!;
     

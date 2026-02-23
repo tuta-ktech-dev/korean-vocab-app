@@ -25,8 +25,6 @@ class SRSService {
         return _handleHint(vocab, now);
       case QuizResult.skip:
         return _handleSkip(vocab, now);
-      default:
-        return now.add(const Duration(minutes: 10));
     }
   }
 

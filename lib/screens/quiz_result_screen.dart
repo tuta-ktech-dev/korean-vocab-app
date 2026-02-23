@@ -9,7 +9,6 @@ class QuizResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accuracy = session.accuracy;
-    final total = session.correctCount + session.incorrectCount;
     
     String title;
     String subtitle;
