@@ -22,6 +22,8 @@ dependencies:
   equatable: ^2.0.8
   image_picker: ^1.2.1
   path: ^1.9.1
+  flutter_local_notifications: ^21.0.0-dev.2
+  timezone: ^0.11.0
 
 dev_dependencies:
   flutter_test:

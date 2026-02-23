@@ -70,5 +70,11 @@
 	<string>Ứng dụng cần truy cập thư viện ảnh để chọn ảnh minh họa cho từ vựng</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Ứng dụng cần truy cập camera để chụp ảnh minh họa cho từ vựng</string>
+	<!-- Required for flutter_local_notifications on iOS -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

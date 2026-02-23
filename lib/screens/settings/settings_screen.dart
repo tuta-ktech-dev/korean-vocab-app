@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'notification_settings_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -10,11 +11,26 @@ class SettingsScreen extends StatelessWidget {
       child: SafeArea(
         child: ListView(
           children: [
+            _buildSectionHeader('Thông báo'),
+            _buildSettingsTile(
+              icon: CupertinoIcons.bell_fill,
+              title: 'Thông báo học tập',
+              subtitle: 'Nhắc nhở ôn tập & từ ngẫu nhiên',
+              color: CupertinoColors.systemRed,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => const NotificationSettingsScreen(),
+                  ),
+                );
+              },
+            ),
             _buildSectionHeader('Thông tin'),
             _buildSettingsTile(
               icon: CupertinoIcons.info_circle_fill,
               title: 'Về ứng dụng',
-              subtitle: 'Phiên bản 2.7.0',
+              subtitle: 'Phiên bản 3.0.0',
               onTap: () {
                 _showAboutDialog(context);
               },
@@ -120,7 +136,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Phiên bản 2.7.0',
+              'Phiên bản 3.0.0',
               style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 14),
             ),
             SizedBox(height: 8),
