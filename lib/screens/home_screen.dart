@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
+            _buildLogo(),
             _buildStudyButton(context),
             const SizedBox(height: 16),
             Expanded(
@@ -37,6 +38,36 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildLogo() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      child: Column(
+        children: [
+          Image.asset(
+            'assets/images/logo.png',
+            height: 80,
+            width: 80,
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Từ vựng tiếng Hàn',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Text(
+            'Học thông minh với SRS',
+            style: TextStyle(
+              fontSize: 12,
+              color: CupertinoColors.systemGrey,
+            ),
+          ),
+        ],
       ),
     );
   }
