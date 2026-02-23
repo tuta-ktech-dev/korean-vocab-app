@@ -6,7 +6,7 @@ import '../models/category.dart';
 import 'category_detail_screen.dart';
 import 'add_category_screen.dart';
 import 'study_screen.dart';
-import 'quiz_screen.dart';
+import 'quiz_setup_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => const QuizScreen(),
+                  builder: (context) => const QuizSetupScreen(),
                 ),
               );
             },

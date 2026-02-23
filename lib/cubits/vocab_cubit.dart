@@ -69,6 +69,15 @@ class VocabCubit extends Cubit<VocabState> {
     }
   }
 
+  Future<void> updateVocab(Vocab vocab) async {
+    try {
+      await _repository.updateVocab(vocab);
+      await loadVocabs(categoryId: vocab.categoryId);
+    } catch (e) {
+      emit(VocabError(e.toString()));
+    }
+  }
+
   Future<String> _saveImage(File imageFile) async {
     final appDir = await getApplicationDocumentsDirectory();
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';

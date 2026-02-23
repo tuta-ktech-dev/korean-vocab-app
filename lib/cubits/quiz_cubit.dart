@@ -18,7 +18,10 @@ class QuizCubit extends Cubit<QuizState> {
   QuizCubit(this._vocabRepository) : super(QuizInitial());
 
   /// Bắt đầu session mới
-  Future<void> startSession({String? categoryId, int limit = 20}) async {
+  Future<void> startSession({String? categoryId, int limit = 10}) async {
+    if (limit < 5) limit = 5;
+    if (limit > 20) limit = 20;
+    
     emit(QuizLoading());
     
     try {

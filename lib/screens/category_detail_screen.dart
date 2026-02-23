@@ -5,6 +5,7 @@ import '../cubits/vocab_cubit.dart';
 import '../models/category.dart';
 import '../models/vocab.dart';
 import 'add_vocab_screen.dart';
+import 'edit_vocab_screen.dart';
 import 'vocab_detail_screen.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
@@ -102,11 +103,8 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
       subtitle: Text(vocab.meaning),
       trailing: CupertinoButton(
         padding: EdgeInsets.zero,
-        onPressed: () => _deleteVocab(context, vocab),
-        child: const Icon(
-          CupertinoIcons.delete,
-          color: CupertinoColors.destructiveRed,
-        ),
+        onPressed: () => _showOptions(context, vocab),
+        child: const Icon(CupertinoIcons.ellipsis_vertical),
       ),
       onTap: () {
         Navigator.push(
@@ -116,6 +114,44 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           ),
         );
       },
+    );
+  }
+
+  void _showOptions(BuildContext context, Vocab vocab) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(vocab.word),
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => EditVocabScreen(
+                    vocab: vocab,
+                    category: widget.category,
+                  ),
+                ),
+              );
+            },
+            child: const Text('Chỉnh sửa'),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+              _deleteVocab(context, vocab);
+            },
+            child: const Text('Xóa'),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Hủy'),
+        ),
+      ),
     );
   }
 

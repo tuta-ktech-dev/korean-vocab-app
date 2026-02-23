@@ -7,8 +7,9 @@ import 'quiz_views.dart';
 
 class QuizScreen extends StatelessWidget {
   final String? categoryId;
+  final int wordCount;
   
-  const QuizScreen({super.key, this.categoryId});
+  const QuizScreen({super.key, this.categoryId, this.wordCount = 10});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,10 @@ class QuizScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is QuizInitial) {
               // Auto start
-              context.read<QuizCubit>().startSession(categoryId: categoryId);
+              context.read<QuizCubit>().startSession(
+                categoryId: categoryId,
+                limit: wordCount,
+              );
               return const Center(child: CupertinoActivityIndicator());
             }
 
