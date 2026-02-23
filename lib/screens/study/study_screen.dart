@@ -6,7 +6,9 @@ import '../../cubits/vocab_cubit.dart';
 import '../../models/vocab.dart';
 
 class StudyScreen extends StatefulWidget {
-  const StudyScreen({super.key});
+  final String? categoryId;
+
+  const StudyScreen({super.key, this.categoryId});
 
   @override
   State<StudyScreen> createState() => _StudyScreenState();
@@ -20,7 +22,7 @@ class _StudyScreenState extends State<StudyScreen> {
   void initState() {
     super.initState();
     _initTts();
-    context.read<VocabCubit>().loadVocabs();
+    context.read<VocabCubit>().loadVocabs(categoryId: widget.categoryId);
   }
 
   Future<void> _initTts() async {
@@ -52,11 +54,15 @@ class _StudyScreenState extends State<StudyScreen> {
             }
 
             if (state is VocabLoaded) {
-              if (state.vocabs.isEmpty) {
+              final vocabs = widget.categoryId != null
+                  ? state.vocabs.where((v) => v.categoryId == widget.categoryId).toList()
+                  : state.vocabs;
+
+              if (vocabs.isEmpty) {
                 return const Center(child: Text('Chưa có từ vựng nào để học!'));
               }
 
-              return _buildFlashcardView(state.vocabs);
+              return _buildFlashcardView(vocabs);
             }
 
             return const SizedBox.shrink();

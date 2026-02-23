@@ -13,20 +13,29 @@ class MainTabScreen extends StatelessWidget {
       tabBar: CupertinoTabBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.house_fill),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.exclamationmark_triangle_fill),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.chart_bar_fill),
+            icon: Padding(
+              padding: EdgeInsets.only(top: 16.0),
+              child: Icon(CupertinoIcons.house_fill),
+            ),
             label: '',
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(top: 8.0),
+              padding: EdgeInsets.only(top: 16.0),
+              child: Icon(CupertinoIcons.exclamationmark_triangle_fill),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 16.0),
+              child: Icon(CupertinoIcons.chart_bar_fill),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 16.0),
               child: Icon(CupertinoIcons.settings),
             ),
             label: '',

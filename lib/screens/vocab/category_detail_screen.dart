@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../cubits/vocab_cubit.dart';
 import '../../models/category.dart';
 import '../../models/vocab.dart';
+import '../quiz/quiz_setup_screen.dart';
+import '../study/study_screen.dart';
 import 'add_vocab_screen.dart';
 import 'edit_vocab_screen.dart';
 import 'vocab_detail_screen.dart';
@@ -56,11 +58,18 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                 );
               }
 
-              return ListView.builder(
-                itemCount: vocabs.length,
-                itemBuilder: (context, index) {
-                  return _buildVocabItem(context, vocabs[index]);
-                },
+              return Column(
+                children: [
+                  _buildStudyButtons(context, vocabs.length),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: vocabs.length,
+                      itemBuilder: (context, index) {
+                        return _buildVocabItem(context, vocabs[index]);
+                      },
+                    ),
+                  ),
+                ],
               );
             }
 
@@ -71,6 +80,83 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
             return const SizedBox.shrink();
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildStudyButtons(BuildContext context, int vocabCount) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: CupertinoColors.systemGrey6,
+        border: Border(
+          bottom: BorderSide(color: CupertinoColors.systemGrey5),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$vocabCount từ vựng',
+            style: const TextStyle(
+              fontSize: 14,
+              color: CupertinoColors.systemGrey,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: CupertinoButton.filled(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => QuizSetupScreen(
+                          categoryId: widget.category.id,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(CupertinoIcons.bolt_fill, size: 18),
+                      SizedBox(width: 6),
+                      Text('Luyện tập'),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: CupertinoButton(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => StudyScreen(
+                          categoryId: widget.category.id,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(CupertinoIcons.book, size: 18),
+                      SizedBox(width: 6),
+                      Text('Flashcard'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
