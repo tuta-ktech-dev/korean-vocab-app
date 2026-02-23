@@ -5,7 +5,7 @@ import 'repositories/vocab_repository.dart';
 import 'cubits/category_cubit.dart';
 import 'cubits/vocab_cubit.dart';
 import 'cubits/quiz_cubit.dart';
-import 'screens/home_screen.dart';
+import 'screens/home/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,19 +24,15 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => CategoryCubit(
-              context.read<CategoryRepository>(),
-            )..loadCategories(),
+            create: (context) =>
+                CategoryCubit(context.read<CategoryRepository>())
+                  ..loadCategories(),
           ),
           BlocProvider(
-            create: (context) => VocabCubit(
-              context.read<VocabRepository>(),
-            ),
+            create: (context) => VocabCubit(context.read<VocabRepository>()),
           ),
           BlocProvider(
-            create: (context) => QuizCubit(
-              context.read<VocabRepository>(),
-            ),
+            create: (context) => QuizCubit(context.read<VocabRepository>()),
           ),
         ],
         child: const CupertinoApp(

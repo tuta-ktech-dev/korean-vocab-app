@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import '../models/vocab.dart';
+import '../../../models/vocab.dart';
 
 class FlashcardView extends StatefulWidget {
   final Vocab vocab;

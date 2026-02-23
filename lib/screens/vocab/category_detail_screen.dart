@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/vocab_cubit.dart';
-import '../models/category.dart';
-import '../models/vocab.dart';
+import '../../cubits/vocab_cubit.dart';
+import '../../models/category.dart';
+import '../../models/vocab.dart';
 import 'add_vocab_screen.dart';
 import 'edit_vocab_screen.dart';
 import 'vocab_detail_screen.dart';
@@ -80,9 +80,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
       leading: _buildVocabImage(vocab),
       title: Row(
         children: [
-          Expanded(
-            child: Text(vocab.word),
-          ),
+          Expanded(child: Text(vocab.word)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
@@ -129,10 +127,8 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
               Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => EditVocabScreen(
-                    vocab: vocab,
-                    category: widget.category,
-                  ),
+                  builder: (context) =>
+                      EditVocabScreen(vocab: vocab, category: widget.category),
                 ),
               );
             },

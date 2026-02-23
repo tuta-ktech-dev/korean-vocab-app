@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/category_cubit.dart';
-import '../models/category.dart';
-import 'category_detail_screen.dart';
-import 'add_category_screen.dart';
-import 'study_screen.dart';
-import 'quiz_setup_screen.dart';
-import 'settings_screen.dart';
+import '../../cubits/category_cubit.dart';
+import '../../models/category.dart';
+import '../vocab/category_detail_screen.dart';
+import '../vocab/add_category_screen.dart';
+import '../study/study_screen.dart';
+import '../quiz/quiz_setup_screen.dart';
+import '../settings/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -22,9 +22,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              CupertinoPageRoute(
-                builder: (context) => const SettingsScreen(),
-              ),
+              CupertinoPageRoute(builder: (context) => const SettingsScreen()),
             );
           },
           child: const Icon(CupertinoIcons.settings),

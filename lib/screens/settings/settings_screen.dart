@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'difficult_words_screen.dart';
-import 'statistics_screen.dart';
+import '../vocab/difficult_words_screen.dart';
+import '../statistics/statistics_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -8,9 +8,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('Cài đặt'),
-      ),
+      navigationBar: const CupertinoNavigationBar(middle: Text('Cài đặt')),
       child: SafeArea(
         child: ListView(
           children: [
@@ -94,7 +92,9 @@ class SettingsScreen extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: (color ?? CupertinoColors.systemBlue).withValues(alpha: 0.1),
+                color: (color ?? CupertinoColors.systemBlue).withValues(
+                  alpha: 0.1,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -151,18 +151,12 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               'Phiên bản 2.7.0',
-              style: TextStyle(
-                color: CupertinoColors.systemGrey,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 14),
             ),
             SizedBox(height: 8),
             Text(
               '© 2024',
-              style: TextStyle(
-                color: CupertinoColors.systemGrey,
-                fontSize: 12,
-              ),
+              style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 12),
             ),
           ],
         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/vocab_cubit.dart';
-import '../models/vocab.dart';
-import 'quiz_screen.dart';
+import '../../cubits/vocab_cubit.dart';
+import '../../models/vocab.dart';
+import '../quiz/quiz_screen.dart';
 
 class DifficultWordsScreen extends StatelessWidget {
   const DifficultWordsScreen({super.key});
@@ -22,7 +22,7 @@ class DifficultWordsScreen extends StatelessWidget {
 
             if (state is VocabLoaded) {
               final difficultWords = _getDifficultWords(state.vocabs);
-              
+
               if (difficultWords.isEmpty) {
                 return const Center(
                   child: Column(
@@ -44,9 +44,7 @@ class DifficultWordsScreen extends StatelessWidget {
                       SizedBox(height: 8),
                       Text(
                         'Không có từ nào cần ôn lại',
-                        style: TextStyle(
-                          color: CupertinoColors.systemGrey,
-                        ),
+                        style: TextStyle(color: CupertinoColors.systemGrey),
                       ),
                     ],
                   ),
@@ -106,9 +104,7 @@ class DifficultWordsScreen extends StatelessWidget {
           ),
           const Text(
             'cần ôn lại',
-            style: TextStyle(
-              color: CupertinoColors.systemGrey,
-            ),
+            style: TextStyle(color: CupertinoColors.systemGrey),
           ),
         ],
       ),
@@ -127,8 +123,8 @@ class DifficultWordsScreen extends StatelessWidget {
             'Độ chính xác: ${(vocab.accuracy * 100).toInt()}%',
             style: TextStyle(
               fontSize: 12,
-              color: vocab.accuracy < 0.5 
-                  ? CupertinoColors.systemRed 
+              color: vocab.accuracy < 0.5
+                  ? CupertinoColors.systemRed
                   : CupertinoColors.systemOrange,
             ),
           ),
@@ -176,9 +172,8 @@ class DifficultWordsScreen extends StatelessWidget {
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => QuizScreen(
-                  wordCount: words.length.clamp(5, 20),
-                ),
+                builder: (context) =>
+                    QuizScreen(wordCount: words.length.clamp(5, 20)),
               ),
             );
           },
@@ -196,9 +191,7 @@ class DifficultWordsScreen extends StatelessWidget {
   }
 
   List<Vocab> _getDifficultWords(List<Vocab> vocabs) {
-    return vocabs
-        .where((v) => v.totalReviews > 0 && v.accuracy < 0.7)
-        .toList()
+    return vocabs.where((v) => v.totalReviews > 0 && v.accuracy < 0.7).toList()
       ..sort((a, b) => a.accuracy.compareTo(b.accuracy));
   }
 }

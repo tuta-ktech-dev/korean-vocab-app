@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../cubits/vocab_cubit.dart';
-import '../models/category.dart';
+import '../../cubits/vocab_cubit.dart';
+import '../../models/category.dart';
 
 class AddVocabScreen extends StatefulWidget {
   final Category category;
@@ -74,7 +74,10 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
                 padding: const EdgeInsets.all(12),
               ),
               const SizedBox(height: 16),
-              const Text('Ví dụ:', style: TextStyle(fontWeight: FontWeight.w600)),
+              const Text(
+                'Ví dụ:',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               const SizedBox(height: 8),
               CupertinoTextField(
                 controller: _exampleController,
@@ -90,16 +93,23 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
                 maxLines: 2,
               ),
               const SizedBox(height: 16),
-              const Text('Ghi chú (Markdown):', style: TextStyle(fontWeight: FontWeight.w600)),
+              const Text(
+                'Ghi chú (Markdown):',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               const SizedBox(height: 8),
               CupertinoTextField(
                 controller: _noteController,
-                placeholder: 'Ghi chú, cách nhớ, tips...\n\nHỗ trợ markdown: **bold**, *italic*, # heading',
+                placeholder:
+                    'Ghi chú, cách nhớ, tips...\n\nHỗ trợ markdown: **bold**, *italic*, # heading',
                 padding: const EdgeInsets.all(12),
                 maxLines: 5,
               ),
               const SizedBox(height: 16),
-              const Text('Ảnh minh họa:', style: TextStyle(fontWeight: FontWeight.w600)),
+              const Text(
+                'Ảnh minh họa:',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               const SizedBox(height: 8),
               _buildImagePicker(),
             ],
@@ -140,7 +150,7 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
   void _saveVocab() {
     final word = _wordController.text.trim();
     final meaning = _meaningController.text.trim();
-    
+
     if (word.isEmpty || meaning.isEmpty) return;
 
     context.read<VocabCubit>().addVocab(

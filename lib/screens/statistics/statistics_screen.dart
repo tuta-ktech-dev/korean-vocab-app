@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/vocab_cubit.dart';
-import '../models/vocab.dart';
+import '../../cubits/vocab_cubit.dart';
+import '../../models/vocab.dart';
+import '../../widgets/cupertino_progress.dart';
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({super.key});
@@ -10,9 +10,7 @@ class StatisticsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('Thống kê'),
-      ),
+      navigationBar: const CupertinoNavigationBar(middle: Text('Thống kê')),
       child: SafeArea(
         child: BlocBuilder<VocabCubit, VocabState>(
           builder: (context, state) {
@@ -22,7 +20,7 @@ class StatisticsScreen extends StatelessWidget {
 
             if (state is VocabLoaded) {
               final stats = _calculateStats(state.vocabs);
-              
+
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -114,20 +112,18 @@ class StatisticsScreen extends StatelessWidget {
         ),
         Text(
           label,
-          style: const TextStyle(
-            color: CupertinoColors.white,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: CupertinoColors.white, fontSize: 12),
         ),
       ],
     );
   }
 
   Widget _buildProgressCard(Map<String, dynamic> stats) {
-    final percentage = stats['total'] > 0 
-        ? (stats['mastered'] / stats['total'] * 100).toInt() 
-        : 0;
-    
+    final double percentageValue = stats['total'] > 0
+        ? (stats['mastered'] / stats['total'])
+        : 0.0;
+    final percentage = (percentageValue * 100).toInt();
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -135,61 +131,51 @@ class StatisticsScreen extends StatelessWidget {
         color: CupertinoColors.systemGrey6,
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          const Text(
-            'Tiến độ',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '$percentage%',
-                      style: const TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        color: CupertinoColors.systemGreen,
-                      ),
-                    ),
-                    const Text(
-                      'Đã hoàn thành',
-                      style: TextStyle(
-                        color: CupertinoColors.systemGrey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Tiến độ',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
-              ),
-              SizedBox(
-                width: 80,
-                height: 80,
-                child: CircularProgressIndicator(
-                  value: percentage / 100,
-                  strokeWidth: 10,
-                  backgroundColor: CupertinoColors.systemGrey4,
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    CupertinoColors.systemGreen,
+                const SizedBox(height: 16),
+                Text(
+                  '$percentage%',
+                  style: const TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    color: CupertinoColors.activeGreen,
                   ),
                 ),
-              ),
-            ],
+                const Text(
+                  'Đã hoàn thành',
+                  style: TextStyle(
+                    color: CupertinoColors.systemGrey,
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Còn ${stats['total'] - stats['mastered']} từ nữa để hoàn thành',
+                  style: const TextStyle(
+                    color: CupertinoColors.systemGrey,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 12),
-          Text(
-            'Còn ${stats['total'] - stats['mastered']} từ nữa để hoàn thành',
-            style: const TextStyle(
-              color: CupertinoColors.systemGrey,
-              fontSize: 12,
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: CupertinoCircularProgress(
+              value: percentageValue,
+              strokeWidth: 10,
+              color: CupertinoColors.activeGreen,
+              backgroundColor: CupertinoColors.systemGrey4,
             ),
           ),
         ],
@@ -211,10 +197,7 @@ class StatisticsScreen extends StatelessWidget {
         children: [
           const Text(
             'Phân bố trạng thái',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 16),
           _buildStatusBar(
@@ -262,8 +245,8 @@ class StatisticsScreen extends StatelessWidget {
     required int total,
     required Color color,
   }) {
-    final percentage = total > 0 ? count / total : 0.0;
-    
+    final percentage = total > 0 ? (count / total).toDouble() : 0.0;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -271,22 +254,11 @@ class StatisticsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(label),
-            Text(
-              '$count',
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
+            Text('$count', style: const TextStyle(fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 6),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: percentage,
-            backgroundColor: CupertinoColors.systemGrey5,
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-            minHeight: 8,
-          ),
-        ),
+        CupertinoProgressBar(value: percentage, color: color, height: 8),
       ],
     );
   }
@@ -314,10 +286,7 @@ class StatisticsScreen extends StatelessWidget {
               SizedBox(width: 8),
               Text(
                 'Thống kê học tập',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -361,10 +330,7 @@ class StatisticsScreen extends StatelessWidget {
         ),
         Text(
           value,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ],
     );
@@ -372,7 +338,7 @@ class StatisticsScreen extends StatelessWidget {
 
   Map<String, dynamic> _calculateStats(List<Vocab> vocabs) {
     final now = DateTime.now();
-    
+
     int notStarted = 0;
     int newCount = 0;
     int learning = 0;
@@ -401,7 +367,7 @@ class StatisticsScreen extends StatelessWidget {
       totalAccuracy += vocab.accuracy;
 
       // Due today
-      if (vocab.nextReview != null && 
+      if (vocab.nextReview != null &&
           vocab.nextReview!.isBefore(now.add(const Duration(days: 1)))) {
         dueToday++;
       }
@@ -415,8 +381,8 @@ class StatisticsScreen extends StatelessWidget {
       'reviewing': reviewing,
       'mastered': mastered,
       'totalReviews': totalReviews,
-      'averageAccuracy': vocabs.isNotEmpty 
-          ? (totalAccuracy / vocabs.length * 100).toInt() 
+      'averageAccuracy': vocabs.isNotEmpty
+          ? (totalAccuracy / vocabs.length * 100).toInt()
           : 0,
       'dueToday': dueToday,
     };

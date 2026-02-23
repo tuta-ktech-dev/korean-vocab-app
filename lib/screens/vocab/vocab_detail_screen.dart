@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import '../models/vocab.dart';
+import '../../models/vocab.dart';
 
 class VocabDetailScreen extends StatefulWidget {
   final Vocab vocab;
@@ -81,10 +81,7 @@ class _VocabDetailScreenState extends State<VocabDetailScreen> {
         children: [
           Text(
             widget.vocab.word,
-            style: const TextStyle(
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
           ),
           if (widget.vocab.pronunciation != null) ...[
             const SizedBox(height: 8),
@@ -147,16 +144,10 @@ class _VocabDetailScreenState extends State<VocabDetailScreen> {
         children: [
           const Text(
             'Ví dụ:',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           const SizedBox(height: 8),
-          Text(
-            widget.vocab.example!,
-            style: const TextStyle(fontSize: 18),
-          ),
+          Text(widget.vocab.example!, style: const TextStyle(fontSize: 18)),
           if (widget.vocab.exampleMeaning != null) ...[
             const SizedBox(height: 8),
             Text(
@@ -196,20 +187,14 @@ class _VocabDetailScreenState extends State<VocabDetailScreen> {
               SizedBox(width: 8),
               Text(
                 'Ghi chú:',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
               ),
             ],
           ),
           const SizedBox(height: 12),
           Text(
             widget.vocab.note!,
-            style: const TextStyle(
-              fontSize: 14,
-              height: 1.5,
-            ),
+            style: const TextStyle(fontSize: 14, height: 1.5),
           ),
         ],
       ),

@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../cubits/vocab_cubit.dart';
-import '../models/category.dart';
-import '../models/vocab.dart';
+import '../../cubits/vocab_cubit.dart';
+import '../../models/category.dart';
+import '../../models/vocab.dart';
 
 class EditVocabScreen extends StatefulWidget {
   final Vocab vocab;
@@ -22,11 +22,21 @@ class EditVocabScreen extends StatefulWidget {
 
 class _EditVocabScreenState extends State<EditVocabScreen> {
   late final _wordController = TextEditingController(text: widget.vocab.word);
-  late final _pronunciationController = TextEditingController(text: widget.vocab.pronunciation ?? '');
-  late final _meaningController = TextEditingController(text: widget.vocab.meaning);
-  late final _exampleController = TextEditingController(text: widget.vocab.example ?? '');
-  late final _exampleMeaningController = TextEditingController(text: widget.vocab.exampleMeaning ?? '');
-  late final _noteController = TextEditingController(text: widget.vocab.note ?? '');
+  late final _pronunciationController = TextEditingController(
+    text: widget.vocab.pronunciation ?? '',
+  );
+  late final _meaningController = TextEditingController(
+    text: widget.vocab.meaning,
+  );
+  late final _exampleController = TextEditingController(
+    text: widget.vocab.example ?? '',
+  );
+  late final _exampleMeaningController = TextEditingController(
+    text: widget.vocab.exampleMeaning ?? '',
+  );
+  late final _noteController = TextEditingController(
+    text: widget.vocab.note ?? '',
+  );
   File? _selectedImage;
   bool _deleteImage = false;
 
@@ -147,15 +157,15 @@ class _EditVocabScreenState extends State<EditVocabScreen> {
         children: [
           _buildInfoRow('Trạng thái:', widget.vocab.studyStatus),
           const SizedBox(height: 8),
-          _buildInfoRow('Độ thuộc:', '${(widget.vocab.accuracy * 100).toInt()}%'),
+          _buildInfoRow(
+            'Độ thuộc:',
+            '${(widget.vocab.accuracy * 100).toInt()}%',
+          ),
           const SizedBox(height: 8),
           _buildInfoRow('Đã ôn:', '${widget.vocab.totalReviews} lần'),
           if (widget.vocab.lastReviewed != null) ...[
             const SizedBox(height: 8),
-            _buildInfoRow(
-              'Lần cuối:',
-              _formatDate(widget.vocab.lastReviewed!),
-            ),
+            _buildInfoRow('Lần cuối:', _formatDate(widget.vocab.lastReviewed!)),
           ],
         ],
       ),
@@ -175,10 +185,7 @@ class _EditVocabScreenState extends State<EditVocabScreen> {
         const SizedBox(width: 8),
         Text(
           value,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
         ),
       ],
     );
@@ -187,7 +194,7 @@ class _EditVocabScreenState extends State<EditVocabScreen> {
   String _formatDate(DateTime date) {
     final now = DateTime.now();
     final diff = now.difference(date);
-    
+
     if (diff.inMinutes < 60) {
       return '${diff.inMinutes} phút trước';
     } else if (diff.inHours < 24) {
@@ -203,11 +210,11 @@ class _EditVocabScreenState extends State<EditVocabScreen> {
     if (_selectedImage != null) {
       return _buildImagePreview(_selectedImage!.path, isFile: true);
     }
-    
+
     if (!_deleteImage && widget.vocab.imagePath != null) {
       return _buildImagePreview(widget.vocab.imagePath!, isFile: true);
     }
-    
+
     return CupertinoButton(
       onPressed: _pickImage,
       child: const Icon(CupertinoIcons.camera, size: 50),
@@ -287,7 +294,7 @@ class _EditVocabScreenState extends State<EditVocabScreen> {
   void _saveVocab() {
     final word = _wordController.text.trim();
     final meaning = _meaningController.text.trim();
-    
+
     if (word.isEmpty || meaning.isEmpty) {
       showCupertinoDialog(
         context: context,

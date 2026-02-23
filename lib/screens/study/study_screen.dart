@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flip_card/flip_card.dart';
-import '../cubits/vocab_cubit.dart';
-import '../models/vocab.dart';
+import '../../cubits/vocab_cubit.dart';
+import '../../models/vocab.dart';
 
 class StudyScreen extends StatefulWidget {
   const StudyScreen({super.key});
@@ -53,9 +53,7 @@ class _StudyScreenState extends State<StudyScreen> {
 
             if (state is VocabLoaded) {
               if (state.vocabs.isEmpty) {
-                return const Center(
-                  child: Text('Chưa có từ vựng nào để học!'),
-                );
+                return const Center(child: Text('Chưa có từ vựng nào để học!'));
               }
 
               return _buildFlashcardView(state.vocabs);
@@ -103,25 +101,22 @@ class _StudyScreenState extends State<StudyScreen> {
     return Container(
       decoration: BoxDecoration(
         color: CupertinoColors.systemBackground,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
             color: CupertinoColors.systemGrey.withValues(alpha: 0.2),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
+        ],
+      ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               vocab.word,
-              style: const TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
             ),
             if (vocab.pronunciation != null) ...[
               const SizedBox(height: 8),
@@ -142,10 +137,7 @@ class _StudyScreenState extends State<StudyScreen> {
             const SizedBox(height: 16),
             const Text(
               'Chạm để lật',
-              style: TextStyle(
-                color: CupertinoColors.systemGrey,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 14),
             ),
           ],
         ),

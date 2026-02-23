@@ -27,10 +27,7 @@ class _QuizSetupScreenState extends State<QuizSetupScreen> {
             children: [
               const Text(
                 'Số từ mỗi lần học',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               const Text(

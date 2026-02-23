@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../models/quiz.dart';
+import '../../models/quiz.dart';
 
 class QuizResultScreen extends StatelessWidget {
   final QuizSession session;
@@ -9,12 +9,12 @@ class QuizResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accuracy = session.accuracy;
-    
+
     String title;
     String subtitle;
     IconData icon;
     Color color;
-    
+
     if (accuracy >= 0.9) {
       title = 'Xuất sắc! 🌟';
       subtitle = 'Bạn đã thuộc gần hết!';
@@ -102,9 +102,7 @@ class QuizResultScreen extends StatelessWidget {
           ),
           const Text(
             'Độ chính xác',
-            style: TextStyle(
-              color: CupertinoColors.systemGrey,
-            ),
+            style: TextStyle(color: CupertinoColors.systemGrey),
           ),
         ],
       ),
@@ -149,10 +147,7 @@ class QuizResultScreen extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         Text(
           label,

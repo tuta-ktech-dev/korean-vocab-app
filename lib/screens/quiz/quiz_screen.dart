@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubits/quiz_cubit.dart';
-import '../models/quiz.dart';
+import '../../cubits/quiz_cubit.dart';
+import '../../models/quiz.dart';
 import 'quiz_result_screen.dart';
-import 'quiz_views.dart';
+import 'widgets/quiz_components.dart';
 
 class QuizScreen extends StatelessWidget {
   final String? categoryId;
   final int wordCount;
-  
+
   const QuizScreen({super.key, this.categoryId, this.wordCount = 10});
 
   @override
@@ -76,8 +76,11 @@ class QuizScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(CupertinoIcons.checkmark_circle_fill, 
-            size: 64, color: CupertinoColors.systemGreen),
+          const Icon(
+            CupertinoIcons.checkmark_circle_fill,
+            size: 64,
+            color: CupertinoColors.systemGreen,
+          ),
           const SizedBox(height: 16),
           Text(
             message,
@@ -87,10 +90,7 @@ class QuizScreen extends StatelessWidget {
           const SizedBox(height: 8),
           const Text(
             'Bạn đã hoàn thành tất cả từ vựng! 🎉',
-            style: TextStyle(
-              color: CupertinoColors.systemGrey,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 14),
           ),
         ],
       ),
@@ -102,13 +102,11 @@ class QuizScreen extends StatelessWidget {
       children: [
         // Progress bar
         _buildProgressBar(state.progress),
-        
+
         // Mode indicator
         _buildModeIndicator(state.mode),
-        
-        Expanded(
-          child: _buildQuizContent(context, state),
-        ),
+
+        Expanded(child: _buildQuizContent(context, state)),
       ],
     );
   }
@@ -134,9 +132,7 @@ class QuizScreen extends StatelessWidget {
               child: FractionallySizedBox(
                 alignment: Alignment.centerLeft,
                 widthFactor: progress.current / progress.total,
-                child: Container(
-                  color: CupertinoColors.systemBlue,
-                ),
+                child: Container(color: CupertinoColors.systemBlue),
               ),
             ),
           ),
@@ -149,7 +145,7 @@ class QuizScreen extends StatelessWidget {
     String label;
     IconData icon;
     Color color;
-    
+
     switch (mode) {
       case QuizMode.flashcard:
         label = 'Flashcard - Xem và nhớ';
@@ -172,7 +168,7 @@ class QuizScreen extends StatelessWidget {
         color = CupertinoColors.systemPurple;
         break;
     }
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -236,16 +232,20 @@ class QuizScreen extends StatelessWidget {
   Widget _buildFeedbackView(BuildContext context, QuizFeedback state) {
     final isCorrect = state.result == QuizResult.correct;
     final nextReviewText = _formatNextReview(state.nextReview);
-    
+
     return Container(
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            isCorrect ? CupertinoIcons.checkmark_circle_fill : CupertinoIcons.xmark_circle_fill,
+            isCorrect
+                ? CupertinoIcons.checkmark_circle_fill
+                : CupertinoIcons.xmark_circle_fill,
             size: 80,
-            color: isCorrect ? CupertinoColors.systemGreen : CupertinoColors.systemRed,
+            color: isCorrect
+                ? CupertinoColors.systemGreen
+                : CupertinoColors.systemRed,
           ),
           const SizedBox(height: 24),
           Text(
@@ -253,7 +253,9 @@ class QuizScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: isCorrect ? CupertinoColors.systemGreen : CupertinoColors.systemRed,
+              color: isCorrect
+                  ? CupertinoColors.systemGreen
+                  : CupertinoColors.systemRed,
             ),
           ),
           const SizedBox(height: 16),
@@ -304,7 +306,7 @@ class QuizScreen extends StatelessWidget {
   String _formatNextReview(DateTime nextReview) {
     final now = DateTime.now();
     final diff = nextReview.difference(now);
-    
+
     if (diff.inMinutes < 60) {
       return '${diff.inMinutes} phút nữa';
     } else if (diff.inHours < 24) {
