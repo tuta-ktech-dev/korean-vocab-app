@@ -3,25 +3,24 @@ import 'package:equatable/equatable.dart';
 import '../models/vocab.dart';
 import '../repositories/vocab_repository.dart';
 
-part 'vocab_state.dart';
+part 'study_state.dart';
 
-/// Global VocabCubit — đơn giản, chỉ load/lưu vocab.
-/// Dùng khi cần load all vocabs từ một nơi không có cubit riêng.
-/// Hiện tại ít được dùng hơn kể từ khi có các cubit chuyên biệt.
-class VocabCubit extends Cubit<VocabState> {
+/// Cubit dành riêng cho StudyScreen.
+/// Load vocab để học flashcard (all hoặc theo category).
+class StudyCubit extends Cubit<StudyState> {
   final VocabRepository _repository;
 
-  VocabCubit(this._repository) : super(VocabInitial());
+  StudyCubit(this._repository) : super(StudyInitial());
 
   Future<void> loadVocabs({String? categoryId}) async {
-    emit(VocabLoading());
+    emit(StudyLoading());
     try {
       final vocabs = categoryId != null
           ? await _repository.getVocabsByCategory(categoryId)
           : await _repository.getAllVocabs();
-      emit(VocabLoaded(vocabs));
+      emit(StudyLoaded(vocabs));
     } catch (e) {
-      emit(VocabError(e.toString()));
+      emit(StudyError(e.toString()));
     }
   }
 }

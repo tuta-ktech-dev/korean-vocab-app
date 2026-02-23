@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home/home_screen.dart';
 import '../screens/vocab/difficult_words_screen.dart';
 import '../screens/statistics/statistics_screen.dart';
 import '../screens/settings/settings_screen.dart';
+import '../cubits/difficult_words_cubit.dart';
+import '../cubits/statistics_cubit.dart';
+import '../repositories/vocab_repository.dart';
 
 class MainTabScreen extends StatelessWidget {
   const MainTabScreen({super.key});
@@ -48,11 +52,21 @@ class MainTabScreen extends StatelessWidget {
             return CupertinoTabView(builder: (context) => const HomeScreen());
           case 1:
             return CupertinoTabView(
-              builder: (context) => const DifficultWordsScreen(),
+              builder: (context) => BlocProvider(
+                create: (ctx) =>
+                    DifficultWordsCubit(ctx.read<VocabRepository>())
+                      ..loadDifficultWords(),
+                child: const DifficultWordsScreen(),
+              ),
             );
           case 2:
             return CupertinoTabView(
-              builder: (context) => const StatisticsScreen(),
+              builder: (context) => BlocProvider(
+                create: (ctx) =>
+                    StatisticsCubit(ctx.read<VocabRepository>())
+                      ..loadStatistics(),
+                child: const StatisticsScreen(),
+              ),
             );
           case 3:
             return CupertinoTabView(

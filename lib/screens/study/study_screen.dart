@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flip_card/flip_card.dart';
-import '../../cubits/vocab_cubit.dart';
+import '../../cubits/study_cubit.dart';
 import '../../models/vocab.dart';
 
 class StudyScreen extends StatefulWidget {
@@ -22,11 +22,7 @@ class _StudyScreenState extends State<StudyScreen> {
   void initState() {
     super.initState();
     _initTts();
-    // Global VocabCubit đã load all rồi. Reload nếu state chưa sẵn sàng.
-    final currentState = context.read<VocabCubit>().state;
-    if (currentState is! VocabLoaded) {
-      context.read<VocabCubit>().loadVocabs();
-    }
+    context.read<StudyCubit>().loadVocabs(categoryId: widget.categoryId);
   }
 
   Future<void> _initTts() async {
@@ -51,18 +47,14 @@ class _StudyScreenState extends State<StudyScreen> {
         middle: Text('Học flashcard'),
       ),
       child: SafeArea(
-        child: BlocBuilder<VocabCubit, VocabState>(
+        child: BlocBuilder<StudyCubit, StudyState>(
           builder: (context, state) {
-            if (state is VocabLoading) {
+            if (state is StudyLoading) {
               return const Center(child: CupertinoActivityIndicator());
             }
 
-            if (state is VocabLoaded) {
-              final vocabs = widget.categoryId != null
-                  ? state.vocabs
-                        .where((v) => v.categoryId == widget.categoryId)
-                        .toList()
-                  : state.vocabs;
+            if (state is StudyLoaded) {
+              final vocabs = state.vocabs;
 
               if (vocabs.isEmpty) {
                 return const Center(child: Text('Chưa có từ vựng nào để học!'));

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../cubits/vocab_cubit.dart';
-import '../../models/vocab.dart';
+import '../../cubits/statistics_cubit.dart';
 import '../../widgets/cupertino_progress.dart';
 
 class StatisticsScreen extends StatelessWidget {
@@ -12,14 +11,14 @@ class StatisticsScreen extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(middle: Text('Thống kê')),
       child: SafeArea(
-        child: BlocBuilder<VocabCubit, VocabState>(
+        child: BlocBuilder<StatisticsCubit, StatisticsState>(
           builder: (context, state) {
-            if (state is VocabLoading) {
+            if (state is StatisticsLoading) {
               return const Center(child: CupertinoActivityIndicator());
             }
 
-            if (state is VocabLoaded) {
-              final stats = _calculateStats(state.vocabs);
+            if (state is StatisticsLoaded) {
+              final stats = state.stats;
 
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
@@ -334,57 +333,5 @@ class StatisticsScreen extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Map<String, dynamic> _calculateStats(List<Vocab> vocabs) {
-    final now = DateTime.now();
-
-    int notStarted = 0;
-    int newCount = 0;
-    int learning = 0;
-    int reviewing = 0;
-    int mastered = 0;
-    int totalReviews = 0;
-    double totalAccuracy = 0;
-    int dueToday = 0;
-
-    for (final vocab in vocabs) {
-      // Status counts
-      if (vocab.totalReviews == 0) {
-        notStarted++;
-      } else if (vocab.familiarity == 0) {
-        newCount++;
-      } else if (vocab.familiarity == 1) {
-        learning++;
-      } else if (vocab.familiarity == 2) {
-        reviewing++;
-      } else {
-        mastered++;
-      }
-
-      // Stats
-      totalReviews += vocab.totalReviews;
-      totalAccuracy += vocab.accuracy;
-
-      // Due today
-      if (vocab.nextReview != null &&
-          vocab.nextReview!.isBefore(now.add(const Duration(days: 1)))) {
-        dueToday++;
-      }
-    }
-
-    return {
-      'total': vocabs.length,
-      'notStarted': notStarted,
-      'new': newCount,
-      'learning': learning,
-      'reviewing': reviewing,
-      'mastered': mastered,
-      'totalReviews': totalReviews,
-      'averageAccuracy': vocabs.isNotEmpty
-          ? (totalAccuracy / vocabs.length * 100).toInt()
-          : 0,
-      'dueToday': dueToday,
-    };
   }
 }

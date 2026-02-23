@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../cubits/vocab_cubit.dart';
+import '../../cubits/category_detail_cubit.dart';
 import '../../models/category.dart';
 
 class AddVocabScreen extends StatefulWidget {
@@ -153,7 +153,7 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
 
     if (word.isEmpty || meaning.isEmpty) return;
 
-    context.read<VocabCubit>().addVocab(
+    context.read<CategoryDetailCubit>().addVocab(
       word: word,
       pronunciation: _pronunciationController.text.trim().isEmpty
           ? null
@@ -168,7 +168,6 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
       note: _noteController.text.trim().isEmpty
           ? null
           : _noteController.text.trim(),
-      categoryId: widget.category.id,
       imageFile: _selectedImage,
     );
     Navigator.pop(context);

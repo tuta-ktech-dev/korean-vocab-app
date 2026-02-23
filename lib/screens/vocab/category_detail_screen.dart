@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../cubits/vocab_cubit.dart';
+import '../../cubits/category_detail_cubit.dart';
 import '../../models/category.dart';
 import '../../models/vocab.dart';
 import '../quiz/quiz_setup_screen.dart';
@@ -31,16 +31,14 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
         ),
       ),
       child: SafeArea(
-        child: BlocBuilder<VocabCubit, VocabState>(
+        child: BlocBuilder<CategoryDetailCubit, CategoryDetailState>(
           builder: (context, state) {
-            if (state is VocabLoading) {
+            if (state is CategoryDetailLoading) {
               return const Center(child: CupertinoActivityIndicator());
             }
 
-            if (state is VocabLoaded) {
-              final vocabs = state.vocabs
-                  .where((v) => v.categoryId == widget.category.id)
-                  .toList();
+            if (state is CategoryDetailLoaded) {
+              final vocabs = state.vocabs;
 
               if (vocabs.isEmpty) {
                 return const Center(
@@ -63,7 +61,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
               );
             }
 
-            if (state is VocabError) {
+            if (state is CategoryDetailError) {
               return Center(child: Text('Lỗi: ${state.message}'));
             }
 
@@ -265,7 +263,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () {
-              context.read<VocabCubit>().deleteVocab(vocab.id);
+              context.read<CategoryDetailCubit>().deleteVocab(vocab.id);
               Navigator.pop(context);
             },
             child: const Text('Xóa'),

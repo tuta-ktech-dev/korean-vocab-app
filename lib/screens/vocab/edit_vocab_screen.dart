@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../cubits/vocab_cubit.dart';
+import '../../cubits/category_detail_cubit.dart';
 import '../../models/category.dart';
 import '../../models/vocab.dart';
 
@@ -342,7 +342,7 @@ class _EditVocabScreenState extends State<EditVocabScreen> {
     );
 
     // TODO: Add updateVocab method to cubit
-    context.read<VocabCubit>().updateVocab(updatedVocab);
+    context.read<CategoryDetailCubit>().updateVocab(updatedVocab);
     Navigator.pop(context);
   }
 
@@ -360,10 +360,7 @@ class _EditVocabScreenState extends State<EditVocabScreen> {
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () {
-              context.read<VocabCubit>().deleteVocab(
-                widget.vocab.id,
-                categoryId: widget.category.id,
-              );
+              context.read<CategoryDetailCubit>().deleteVocab(widget.vocab.id);
               Navigator.pop(context);
               Navigator.pop(context);
             },

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../cubits/vocab_cubit.dart';
+import '../../cubits/difficult_words_cubit.dart';
 import '../../models/vocab.dart';
 import '../quiz/quiz_setup_screen.dart';
 
@@ -15,12 +15,8 @@ class _DifficultWordsScreenState extends State<DifficultWordsScreen> {
   @override
   void initState() {
     super.initState();
-    // Global VocabCubit load all. Trigger nếu chưa có data.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = context.read<VocabCubit>().state;
-      if (state is! VocabLoaded) {
-        context.read<VocabCubit>().loadVocabs();
-      }
+      context.read<DifficultWordsCubit>().loadDifficultWords();
     });
   }
 
@@ -31,14 +27,14 @@ class _DifficultWordsScreenState extends State<DifficultWordsScreen> {
         middle: Text('Từ cần ôn lại'),
       ),
       child: SafeArea(
-        child: BlocBuilder<VocabCubit, VocabState>(
+        child: BlocBuilder<DifficultWordsCubit, DifficultWordsState>(
           builder: (context, state) {
-            if (state is VocabLoading) {
+            if (state is DifficultWordsLoading) {
               return const Center(child: CupertinoActivityIndicator());
             }
 
-            if (state is VocabLoaded) {
-              final difficultWords = _getDifficultWords(state.vocabs);
+            if (state is DifficultWordsLoaded) {
+              final difficultWords = state.words;
 
               if (difficultWords.isEmpty) {
                 return const Center(
@@ -204,10 +200,5 @@ class _DifficultWordsScreenState extends State<DifficultWordsScreen> {
         ),
       ),
     );
-  }
-
-  List<Vocab> _getDifficultWords(List<Vocab> vocabs) {
-    return vocabs.where((v) => v.totalReviews > 0 && v.accuracy < 0.7).toList()
-      ..sort((a, b) => a.accuracy.compareTo(b.accuracy));
   }
 }
