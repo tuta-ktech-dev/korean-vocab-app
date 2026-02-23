@@ -11,13 +11,19 @@ part 'vocab_state.dart';
 class VocabCubit extends Cubit<VocabState> {
   final VocabRepository _repository;
 
-  VocabCubit(this._repository) : super(VocabInitial());
+  /// Nếu set → cubit này là scoped (chỉ load vocab của 1 category).
+  /// Nếu null → global cubit (load tất cả vocab).
+  final String? scopedCategoryId;
 
+  VocabCubit(this._repository, {this.scopedCategoryId}) : super(VocabInitial());
+
+  /// Load vocab. Nếu không truyền categoryId sẽ dùng scopedCategoryId.
   Future<void> loadVocabs({String? categoryId}) async {
+    final id = categoryId ?? scopedCategoryId;
     emit(VocabLoading());
     try {
-      final vocabs = categoryId != null
-          ? await _repository.getVocabsByCategory(categoryId)
+      final vocabs = id != null
+          ? await _repository.getVocabsByCategory(id)
           : await _repository.getAllVocabs();
       emit(VocabLoaded(vocabs));
     } catch (e) {
@@ -54,7 +60,7 @@ class VocabCubit extends Cubit<VocabState> {
         createdAt: DateTime.now(),
       );
       await _repository.insertVocab(vocab);
-      await loadVocabs(); // Reload all để không corrupt global state
+      await loadVocabs(); // Mutations reload theo scope của instance
     } catch (e) {
       emit(VocabError(e.toString()));
     }
@@ -63,7 +69,7 @@ class VocabCubit extends Cubit<VocabState> {
   Future<void> deleteVocab(String id, {String? categoryId}) async {
     try {
       await _repository.deleteVocab(id);
-      await loadVocabs(); // Reload all
+      await loadVocabs(); // Mutations reload theo scope của instance
     } catch (e) {
       emit(VocabError(e.toString()));
     }
@@ -72,7 +78,7 @@ class VocabCubit extends Cubit<VocabState> {
   Future<void> updateVocab(Vocab vocab) async {
     try {
       await _repository.updateVocab(vocab);
-      await loadVocabs(); // Reload all
+      await loadVocabs(); // Mutations reload theo scope của instance
     } catch (e) {
       emit(VocabError(e.toString()));
     }

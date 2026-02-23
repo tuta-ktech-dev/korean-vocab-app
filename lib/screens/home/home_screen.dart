@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../cubits/category_cubit.dart';
+import '../../cubits/vocab_cubit.dart';
 import '../../models/category.dart';
+import '../../repositories/vocab_repository.dart';
 import '../vocab/category_detail_screen.dart';
 import '../vocab/add_category_screen.dart';
 import '../quiz/quiz_setup_screen.dart';
@@ -135,12 +137,24 @@ class HomeScreen extends StatelessWidget {
           : null,
       trailing: const CupertinoListTileChevron(),
       onTap: () {
+        final globalVocabCubit = context.read<VocabCubit>();
+        final repo = context.read<VocabRepository>();
+
         Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => CategoryDetailScreen(category: category),
+            builder: (ctx) => BlocProvider(
+              // Tạo LOCAL VocabCubit scoped cho category này
+              create: (_) =>
+                  VocabCubit(repo, scopedCategoryId: category.id)..loadVocabs(),
+              child: CategoryDetailScreen(category: category),
+            ),
           ),
-        );
+        ).then((_) {
+          // Sau khi pop, refresh global cubit để sync DifficultWordsScreen,
+          // StatisticsScreen với bất kỳ thay đổi nào đã xảy ra
+          globalVocabCubit.loadVocabs();
+        });
       },
     );
   }

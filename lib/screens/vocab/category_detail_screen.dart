@@ -20,18 +20,6 @@ class CategoryDetailScreen extends StatefulWidget {
 
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   @override
-  void initState() {
-    super.initState();
-    // Global VocabCubit đã load all rồi. Chỉ trigger reload nếu state chưa có gì.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = context.read<VocabCubit>().state;
-      if (state is! VocabLoaded) {
-        context.read<VocabCubit>().loadVocabs();
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
