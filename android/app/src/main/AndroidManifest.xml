@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-        android:label="korean_vocab"
+        android:label="Korean Vocab"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
