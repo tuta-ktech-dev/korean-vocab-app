@@ -111,12 +111,12 @@
         },
         { "word": "소가족", "pronunciation": "", "meaning": "Gia đình nhỏ" },
         {
-          "word": "아버지와 함께 살다",
+          "word": "아버지와 cùng 살다",
           "pronunciation": "",
           "meaning": "Sống với bố"
         },
         {
-          "word": "어머니와 함께 살다",
+          "word": "어머니와 cùng 살다",
           "pronunciation": "",
           "meaning": "Sống với mẹ"
         }
@@ -325,7 +325,7 @@
         },
         { "word": "떡", "pronunciation": "", "meaning": "Bánh tteok" },
         { "word": "라면", "pronunciation": "", "meaning": "Mì ăn liền" },
-        { "word": "피za", "pronunciation": "", "meaning": "Pizza" },
+        { "word": "피자", "pronunciation": "", "meaning": "Pizza" },
         { "word": "햄버거", "pronunciation": "", "meaning": "Hamburger" },
         { "word": "치킨", "pronunciation": "", "meaning": "Gà rán" },
         { "word": "떡볶이", "pronunciation": "", "meaning": "Bánh gạo cay" },
@@ -470,6 +470,513 @@
         { "word": "좌석", "pronunciation": "", "meaning": "Chỗ ngồi" },
         { "word": "버스카드", "pronunciation": "", "meaning": "Thẻ xe buýt" },
         { "word": "속도", "pronunciation": "", "meaning": "Tốc độ" }
+      ]
+    },
+    {
+      "name": "Chủ đề 9: Thời Tiết (날씨)",
+      "words": [
+        { "word": "날씨", "pronunciation": "", "meaning": "Thời tiết" },
+        { "word": "맑다", "pronunciation": "", "meaning": "Quang đãng, nắng" },
+        { "word": "흐리다", "pronunciation": "", "meaning": "U ám, mây mù" },
+        { "word": "비가 오다", "pronunciation": "", "meaning": "Mưa rơi" },
+        { "word": "눈이 오다", "pronunciation": "", "meaning": "Tuyết rơi" },
+        { "word": "덥다", "pronunciation": "", "meaning": "Nóng" },
+        { "word": "춥다", "pronunciation": "", "meaning": "Lạnh" },
+        { "word": "따뜻하다", "pronunciation": "", "meaning": "Ấm áp" },
+        { "word": "습하다", "pronunciation": "", "meaning": "Ẩm, độ ẩm cao" },
+        { "word": "바람", "pronunciation": "", "meaning": "Gió" },
+        { "word": "구름", "pronunciation": "", "meaning": "Mây" },
+        { "word": "번개", "pronunciation": "", "meaning": "Sấm sét" },
+        { "word": "천둥", "pronunciation": "", "meaning": "Sấm" },
+        { "word": "안개", "pronunciation": "", "meaning": "Sương mù" },
+        {
+          "word": "날씨가 좋다",
+          "pronunciation": "",
+          "meaning": "Thời tiết đẹp"
+        },
+        {
+          "word": "날씨가 나쁘다",
+          "pronunciation": "",
+          "meaning": "Thời tiết xấu"
+        },
+        { "word": "더위", "pronunciation": "", "meaning": "Nắng nóng" },
+        { "word": "추위", "pronunciation": "", "meaning": "Lạnh giá" },
+        { "word": "비가 그치다", "pronunciation": "", "meaning": "Mưa tạnh" },
+        { "word": "바람이 불다", "pronunciation": "", "meaning": "Gió thổi" },
+        { "word": "기온", "pronunciation": "", "meaning": "Nhiệt độ" },
+        { "word": "온도", "pronunciation": "", "meaning": "Nhiệt độ" },
+        { "word": "습기", "pronunciation": "", "meaning": "Độ ẩm" },
+        { "word": "우산", "pronunciation": "", "meaning": "Ô, dù" },
+        {
+          "word": "날씨 예보",
+          "pronunciation": "",
+          "meaning": "Dự báo thời tiết"
+        },
+        { "word": "바람이 세다", "pronunciation": "", "meaning": "Gió mạnh" },
+        {
+          "word": "기온이 올라가다",
+          "pronunciation": "",
+          "meaning": "Nhiệt độ tăng lên"
+        },
+        {
+          "word": "기온이 내려가다",
+          "pronunciation": "",
+          "meaning": "Nhiệt độ giảm xuống"
+        },
+        { "word": "폭우", "pronunciation": "", "meaning": "Mưa lớn" }
+      ]
+    },
+    {
+      "name": "Chủ đề 10: Sức Khỏe (건강)",
+      "words": [
+        { "word": "건강", "pronunciation": "", "meaning": "Sức khỏe" },
+        { "word": "병원", "pronunciation": "", "meaning": "Bệnh viện" },
+        { "word": "의사", "pronunciation": "", "meaning": "Bác sĩ" },
+        { "word": "약", "pronunciation": "", "meaning": "Thuốc" },
+        { "word": "진료", "pronunciation": "", "meaning": "Khám chữa bệnh" },
+        {
+          "word": "건강검진",
+          "pronunciation": "",
+          "meaning": "Kiểm tra sức khỏe"
+        },
+        { "word": "수술", "pronunciation": "", "meaning": "Phẫu thuật" },
+        { "word": "치료", "pronunciation": "", "meaning": "Chữa trị" },
+        { "word": "예방", "pronunciation": "", "meaning": "Phòng ngừa" },
+        { "word": "증상", "pronunciation": "", "meaning": "Triệu chứng" },
+        { "word": "아프다", "pronunciation": "", "meaning": "Đau, bị bệnh" },
+        { "word": "기침하다", "pronunciation": "", "meaning": "Ho" },
+        { "word": "열이 나다", "pronunciation": "", "meaning": "Sốt" },
+        { "word": "병에 걸리다", "pronunciation": "", "meaning": "Bị bệnh" },
+        { "word": "회복하다", "pronunciation": "", "meaning": "Hồi phục" },
+        { "word": "다치다", "pronunciation": "", "meaning": "Bị thương" },
+        { "word": "수면", "pronunciation": "", "meaning": "Giấc ngủ" },
+        { "word": "운동하다", "pronunciation": "", "meaning": "Tập thể thao" },
+        { "word": "식사하다", "pronunciation": "", "meaning": "Ăn uống" },
+        { "word": "체중", "pronunciation": "", "meaning": "Cân nặng" },
+        { "word": "체력", "pronunciation": "", "meaning": "Thể lực" },
+        {
+          "word": "다이어트",
+          "pronunciation": "",
+          "meaning": "Ăn kiêng, giảm cân"
+        },
+        { "word": "혈압", "pronunciation": "", "meaning": "Huyết áp" },
+        { "word": "심장", "pronunciation": "", "meaning": "Tim" },
+        { "word": "폐", "pronunciation": "", "meaning": "Phổi" },
+        { "word": "스트레스", "pronunciation": "", "meaning": "Căng thẳng" },
+        {
+          "word": "병원에 가다",
+          "pronunciation": "",
+          "meaning": "Đi bệnh viện"
+        },
+        { "word": "예방접종", "pronunciation": "", "meaning": "Tiêm phòng" },
+        { "word": "약을 먹다", "pronunciation": "", "meaning": "Uống thuốc" },
+        { "word": "면역력", "pronunciation": "", "meaning": "Sức đề kháng" },
+        { "word": "피곤하다", "pronunciation": "", "meaning": "Mệt mỏi" },
+        { "word": "휴식", "pronunciation": "", "meaning": "Nghỉ ngơi" },
+        {
+          "word": "영양제",
+          "pronunciation": "",
+          "meaning": "Thuốc bổ, thực phẩm chức năng"
+        },
+        { "word": "체온", "pronunciation": "", "meaning": "Nhiệt độ cơ thể" },
+        {
+          "word": "건강식품",
+          "pronunciation": "",
+          "meaning": "Thực phẩm tốt cho sức khỏe"
+        },
+        { "word": "영양", "pronunciation": "", "meaning": "Dinh dưỡng" },
+        { "word": "두통", "pronunciation": "", "meaning": "Đau đầu" },
+        { "word": "복통", "pronunciation": "", "meaning": "Đau bụng" },
+        { "word": "골절", "pronunciation": "", "meaning": "Gãy xương" }
+      ]
+    },
+    {
+      "name": "Chủ đề 11: Mua Sắm (쇼핑)",
+      "words": [
+        { "word": "쇼핑", "pronunciation": "", "meaning": "Mua sắm" },
+        { "word": "상점", "pronunciation": "", "meaning": "Cửa hàng" },
+        { "word": "할인", "pronunciation": "", "meaning": "Giảm giá" },
+        { "word": "가격", "pronunciation": "", "meaning": "Giá cả" },
+        {
+          "word": "카드",
+          "pronunciation": "",
+          "meaning": "Thẻ (thẻ tín dụng)"
+        },
+        { "word": "결제", "pronunciation": "", "meaning": "Thanh toán" },
+        { "word": "세일", "pronunciation": "", "meaning": "Hàng giảm giá" },
+        {
+          "word": "쇼핑몰",
+          "pronunciation": "",
+          "meaning": "Trung tâm mua sắm"
+        },
+        { "word": "제품", "pronunciation": "", "meaning": "Sản phẩm" },
+        { "word": "구입", "pronunciation": "", "meaning": "Mua" },
+        {
+          "word": "구매",
+          "pronunciation": "",
+          "meaning": "Mua sắm, giao dịch mua hàng"
+        },
+        { "word": "장바구니", "pronunciation": "", "meaning": "Giỏ hàng" },
+        { "word": "환불", "pronunciation": "", "meaning": "Hoàn tiền" },
+        { "word": "교환", "pronunciation": "", "meaning": "Đổi hàng" },
+        {
+          "word": "할인점",
+          "pronunciation": "",
+          "meaning": "Cửa hàng giảm giá"
+        },
+        {
+          "word": "인터넷 쇼핑",
+          "pronunciation": "",
+          "meaning": "Mua sắm online"
+        },
+        { "word": "브랜드", "pronunciation": "", "meaning": "Thương hiệu" },
+        { "word": "의류", "pronunciation": "", "meaning": "Quần áo" },
+        { "word": "가방", "pronunciation": "", "meaning": "Túi xách" },
+        { "word": "신발", "pronunciation": "", "meaning": "Giày" },
+        { "word": "액세서리", "pronunciation": "", "meaning": "Phụ kiện" },
+        { "word": "화장품", "pronunciation": "", "meaning": "Mĩ phẩm" },
+        { "word": "할인쿠폰", "pronunciation": "", "meaning": "Mã giảm giá" },
+        { "word": "고객", "pronunciation": "", "meaning": "Khách hàng" },
+        {
+          "word": "맞춤형",
+          "pronunciation": "",
+          "meaning": "Hàng theo yêu cầu"
+        },
+        { "word": "쇼핑백", "pronunciation": "", "meaning": "Túi mua sắm" },
+        { "word": "가격비교", "pronunciation": "", "meaning": "So sánh giá" },
+        {
+          "word": "오프라인",
+          "pronunciation": "",
+          "meaning": "Mua sắm tại cửa hàng"
+        },
+        { "word": "온라인", "pronunciation": "", "meaning": "Mua sắm online" },
+        {
+          "word": "결제 방법",
+          "pronunciation": "",
+          "meaning": "Phương thức thanh toán"
+        },
+        { "word": "특가", "pronunciation": "", "meaning": "Ưu đãi đặc biệt" },
+        { "word": "상품권", "pronunciation": "", "meaning": "Thẻ quà tặng" },
+        { "word": "적립", "pronunciation": "", "meaning": "Tích điểm" },
+        { "word": "보너스", "pronunciation": "", "meaning": "Tiền thưởng" },
+        { "word": "주문", "pronunciation": "", "meaning": "Đặt hàng" },
+        { "word": "배송", "pronunciation": "", "meaning": "Giao hàng" },
+        {
+          "word": "매장",
+          "pronunciation": "",
+          "meaning": "Cửa hàng (vị trí bán lẻ)"
+        },
+        { "word": "대기", "pronunciation": "", "meaning": "Chờ đợi" },
+        { "word": "품질", "pronunciation": "", "meaning": "Chất lượng" },
+        { "word": "할인율", "pronunciation": "", "meaning": "Tỉ lệ giảm giá" }
+      ]
+    },
+    {
+      "name": "Chủ đề 12: Đặt Đồ Ăn (음식 주문)",
+      "words": [
+        { "word": "음식", "pronunciation": "", "meaning": "Đồ ăn" },
+        { "word": "주문", "pronunciation": "", "meaning": "Đặt hàng, gọi món" },
+        { "word": "배달", "pronunciation": "", "meaning": "Giao hàng" },
+        { "word": "메뉴", "pronunciation": "", "meaning": "Thực đơn" },
+        { "word": "맛", "pronunciation": "", "meaning": "Hương vị" },
+        { "word": "가격", "pronunciation": "", "meaning": "Giá cả" },
+        { "word": "식사", "pronunciation": "", "meaning": "Bữa ăn" },
+        { "word": "후식", "pronunciation": "", "meaning": "Món tráng miệng" },
+        { "word": "음료수", "pronunciation": "", "meaning": "Đồ uống" },
+        { "word": "테이크아웃", "pronunciation": "", "meaning": "Mang đi" },
+        { "word": "포장", "pronunciation": "", "meaning": "Đóng gói" },
+        { "word": "다이어트", "pronunciation": "", "meaning": "Ăn kiêng" },
+        { "word": "매운", "pronunciation": "", "meaning": "Cay" },
+        { "word": "간단한", "pronunciation": "", "meaning": "Đơn giản" },
+        { "word": "배고프다", "pronunciation": "", "meaning": "Đói" },
+        { "word": "허기지다", "pronunciation": "", "meaning": "Đói bụng" },
+        { "word": "추가", "pronunciation": "", "meaning": "Thêm món" },
+        { "word": "빵", "pronunciation": "", "meaning": "Bánh mì" },
+        { "word": "고기", "pronunciation": "", "meaning": "Thịt" },
+        { "word": "채소", "pronunciation": "", "meaning": "Rau củ" },
+        { "word": "양념", "pronunciation": "", "meaning": "Gia vị" },
+        { "word": "소스", "pronunciation": "", "meaning": "Nước sốt" },
+        { "word": "combo", "pronunciation": "", "meaning": "Combo" },
+        { "word": "주문하다", "pronunciation": "", "meaning": "Gọi món" },
+        { "word": "먹다", "pronunciation": "", "meaning": "Ăn" },
+        { "word": "배달하다", "pronunciation": "", "meaning": "Giao đồ ăn" },
+        { "word": "포장하다", "pronunciation": "", "meaning": "Đóng gói" },
+        { "word": "맛있다", "pronunciation": "", "meaning": "Ngon" },
+        { "word": "비싼", "pronunciation": "", "meaning": "Đắt" },
+        { "word": "싼", "pronunciation": "", "meaning": "Rẻ" },
+        { "word": "느끼하다", "pronunciation": "", "meaning": "Ngấy" },
+        { "word": "건강하다", "pronunciation": "", "meaning": "Lành mạnh" },
+        { "word": "빠르다", "pronunciation": "", "meaning": "Nhanh" },
+        { "word": "느리다", "pronunciation": "", "meaning": "Chậm" },
+        { "word": "자주", "pronunciation": "", "meaning": "Thường xuyên" },
+        { "word": "가볍다", "pronunciation": "", "meaning": "Nhẹ" },
+        { "word": "무겁다", "pronunciation": "", "meaning": "Nặng" },
+        { "word": "신선하다", "pronunciation": "", "meaning": "Tươi mới" },
+        { "word": "기름지다", "pronunciation": "", "meaning": "Ngậy" },
+        {
+          "word": "소화가 잘 되다",
+          "pronunciation": "",
+          "meaning": "Dễ tiêu hóa"
+        }
+      ]
+    },
+    {
+      "name": "Chủ đề 13: Tính từ miêu tả (형용사)",
+      "words": [
+        { "word": "크다", "pronunciation": "", "meaning": "Lớn" },
+        { "word": "작다", "pronunciation": "", "meaning": "Nhỏ" },
+        { "word": "빠르다", "pronunciation": "", "meaning": "Nhanh" },
+        { "word": "느리다", "pronunciation": "", "meaning": "Chậm" },
+        { "word": "길다", "pronunciation": "", "meaning": "Dài" },
+        { "word": "짧다", "pronunciation": "", "meaning": "Ngắn" },
+        { "word": "높다", "pronunciation": "", "meaning": "Cao" },
+        { "word": "낮다", "pronunciation": "", "meaning": "Thấp" },
+        { "word": "밝다", "pronunciation": "", "meaning": "Sáng" },
+        { "word": "어둡다", "pronunciation": "", "meaning": "Tối" },
+        { "word": "가볍다", "pronunciation": "", "meaning": "Nhẹ" },
+        { "word": "무겁다", "pronunciation": "", "meaning": "Nặng" },
+        { "word": "아름답다", "pronunciation": "", "meaning": "Đẹp" },
+        { "word": "못생기다", "pronunciation": "", "meaning": "Xấu" },
+        { "word": "재미있다", "pronunciation": "", "meaning": "Thú vị" },
+        { "word": "지루하다", "pronunciation": "", "meaning": "Buồn tẻ" },
+        { "word": "시끄럽다", "pronunciation": "", "meaning": "Ồn ào" },
+        { "word": "조용하다", "pronunciation": "", "meaning": "Yên tĩnh" },
+        { "word": "행복하다", "pronunciation": "", "meaning": "Hạnh phúc" },
+        { "word": "슬프다", "pronunciation": "", "meaning": "Buồn" },
+        { "word": "피곤하다", "pronunciation": "", "meaning": "Mệt" },
+        { "word": "건강하다", "pronunciation": "", "meaning": "Khỏe mạnh" },
+        { "word": "배고프다", "pronunciation": "", "meaning": "Đói" },
+        { "word": "배부르다", "pronunciation": "", "meaning": "No" },
+        { "word": "달다", "pronunciation": "", "meaning": "Ngọt" },
+        { "word": "쓰다", "pronunciation": "", "meaning": "Đắng" },
+        { "word": "짜다", "pronunciation": "", "meaning": "Mặn" },
+        { "word": "신선하다", "pronunciation": "", "meaning": "Tươi mới" },
+        { "word": "기름지다", "pronunciation": "", "meaning": "Ngậy" },
+        { "word": "차갑다", "pronunciation": "", "meaning": "Lạnh" },
+        { "word": "따뜻하다", "pronunciation": "", "meaning": "Ấm áp" },
+        { "word": "마르다", "pronunciation": "", "meaning": "Gầy" },
+        { "word": "통통하다", "pronunciation": "", "meaning": "Mũm mĩm" },
+        { "word": "귀엽다", "pronunciation": "", "meaning": "Dễ thương" },
+        { "word": "똑똑하다", "pronunciation": "", "meaning": "Thông minh" },
+        { "word": "친절하다", "pronunciation": "", "meaning": "Hiền hậu" },
+        { "word": "화려하다", "pronunciation": "", "meaning": "Lộng lẫy" },
+        { "word": "넓다", "pronunciation": "", "meaning": "Rộng" },
+        { "word": "좁다", "pronunciation": "", "meaning": "Hẹp" },
+        { "word": "깨끗하다", "pronunciation": "", "meaning": "Sạch" }
+      ]
+    },
+    {
+      "name": "Chủ đề 14: Sinh nhật (생일)",
+      "words": [
+        { "word": "생일", "pronunciation": "", "meaning": "Sinh nhật" },
+        { "word": "축하하다", "pronunciation": "", "meaning": "Chúc mừng" },
+        {
+          "word": "생일 파티",
+          "pronunciation": "",
+          "meaning": "Tiệc sinh nhật"
+        },
+        { "word": "선물", "pronunciation": "", "meaning": "Quà tặng" },
+        { "word": "케이크", "pronunciation": "", "meaning": "Bánh sinh nhật" },
+        { "word": "카드", "pronunciation": "", "meaning": "Thẻ chúc mừng" },
+        { "word": "나이", "pronunciation": "", "meaning": "Tuổi" },
+        { "word": "기념일", "pronunciation": "", "meaning": "Ngày kỷ niệm" },
+        { "word": "특별하다", "pronunciation": "", "meaning": "Đặc biệt" },
+        {
+          "word": "축하 노래",
+          "pronunciation": "",
+          "meaning": "Bài hát chúc mừng sinh nhật"
+        },
+        { "word": "파티", "pronunciation": "", "meaning": "Bữa tiệc" },
+        { "word": "즐겁다", "pronunciation": "", "meaning": "Vui vẻ" },
+        { "word": "초대하다", "pronunciation": "", "meaning": "Mời" },
+        { "word": "친구", "pronunciation": "", "meaning": "Bạn bè" },
+        { "word": "가족", "pronunciation": "", "meaning": "Gia đình" },
+        {
+          "word": "생일 선물",
+          "pronunciation": "",
+          "meaning": "Quà sinh nhật"
+        },
+        { "word": "소원", "pronunciation": "", "meaning": "Ước nguyện" },
+        { "word": "양초", "pronunciation": "", "meaning": "Nến" },
+        {
+          "word": "파티 장소",
+          "pronunciation": "",
+          "meaning": "Địa điểm tiệc"
+        },
+        { "word": "친구들", "pronunciation": "", "meaning": "Những người bạn" },
+        { "word": "만나다", "pronunciation": "", "meaning": "Gặp gỡ" },
+        { "word": "노래", "pronunciation": "", "meaning": "Bài hát" },
+        { "word": "기쁨", "pronunciation": "", "meaning": "Niềm vui" },
+        { "word": "웃다", "pronunciation": "", "meaning": "Cười" },
+        { "word": "즐기다", "pronunciation": "", "meaning": "Thưởng thức" },
+        { "word": "행복하다", "pronunciation": "", "meaning": "Hạnh phúc" },
+        {
+          "word": "사라지다",
+          "pronunciation": "",
+          "meaning": "Biến mất (quà hoặc đồ)"
+        },
+        {
+          "word": "고백하다",
+          "pronunciation": "",
+          "meaning": "Thổ lộ cảm xúc"
+        },
+        { "word": "원하는", "pronunciation": "", "meaning": "Mong muốn" },
+        {
+          "word": "생일 축하해",
+          "pronunciation": "",
+          "meaning": "Chúc mừng sinh nhật (thân mật)"
+        },
+        { "word": "소중하다", "pronunciation": "", "meaning": "Quý giá" },
+        { "word": "특별한", "pronunciation": "", "meaning": "Đặc biệt" },
+        { "word": "기억하다", "pronunciation": "", "meaning": "Nhớ" },
+        {
+          "word": "행복한",
+          "pronunciation": "",
+          "meaning": "Hạnh phúc (tính từ)"
+        },
+        {
+          "word": "기쁨을 주다",
+          "pronunciation": "",
+          "meaning": "Mang lại niềm vui"
+        },
+        { "word": "나누다", "pronunciation": "", "meaning": "Chia sẻ" },
+        { "word": "사랑하다", "pronunciation": "", "meaning": "Yêu thương" },
+        { "word": "감사하다", "pronunciation": "", "meaning": "Cảm ơn" },
+        { "word": "웃음", "pronunciation": "", "meaning": "Tiếng cười" }
+      ]
+    },
+    {
+      "name": "Chủ đề 15: Tính từ đối lập – So sánh (비교, 반대말)",
+      "words": [
+        { "word": "크다", "pronunciation": "", "meaning": "Lớn" },
+        { "word": "작다", "pronunciation": "", "meaning": "Nhỏ" },
+        { "word": "길다", "pronunciation": "", "meaning": "Dài" },
+        { "word": "짧다", "pronunciation": "", "meaning": "Ngắn" },
+        { "word": "높다", "pronunciation": "", "meaning": "Cao" },
+        { "word": "낮다", "pronunciation": "", "meaning": "Thấp" },
+        { "word": "빠르다", "pronunciation": "", "meaning": "Nanh" },
+        { "word": "느리다", "pronunciation": "", "meaning": "Chậm" },
+        { "word": "무겁다", "pronunciation": "", "meaning": "Nặng" },
+        { "word": "가볍다", "pronunciation": "", "meaning": "Nhẹ" },
+        { "word": "따뜻하다", "pronunciation": "", "meaning": "Ấm áp" },
+        { "word": "차갑다", "pronunciation": "", "meaning": "Lạnh" },
+        { "word": "재미있다", "pronunciation": "", "meaning": "Thú vị" },
+        { "word": "지루하다", "pronunciation": "", "meaning": "Buồn tẻ" },
+        { "word": "깨끗하다", "pronunciation": "", "meaning": "Sạch" },
+        { "word": "더럽다", "pronunciation": "", "meaning": "Bẩn" },
+        { "word": "밝다", "pronunciation": "", "meaning": "Sáng" },
+        { "word": "어둡다", "pronunciation": "", "meaning": "Tối" },
+        { "word": "건강하다", "pronunciation": "", "meaning": "Khỏe mạnh" },
+        { "word": "아프다", "pronunciation": "", "meaning": "Đau yếu" },
+        { "word": "강하다", "pronunciation": "", "meaning": "Mạnh" },
+        { "word": "약하다", "pronunciation": "", "meaning": "Yếu" },
+        { "word": "쉽다", "pronunciation": "", "meaning": "Dễ" },
+        { "word": "어렵다", "pronunciation": "", "meaning": "Khó" },
+        { "word": "젊다", "pronunciation": "", "meaning": "Trẻ" },
+        { "word": "늙다", "pronunciation": "", "meaning": "Già" },
+        { "word": "시끄럽다", "pronunciation": "", "meaning": "Ồn ào" },
+        { "word": "조용하다", "pronunciation": "", "meaning": "Yên tĩnh" },
+        { "word": "화려하다", "pronunciation": "", "meaning": "Lộng lẫy" },
+        {
+          "word": "단조롭다",
+          "pronunciation": "",
+          "meaning": "Đơn giản, nhạt nhẽo"
+        },
+        { "word": "귀엽다", "pronunciation": "", "meaning": "Dễ thương" },
+        { "word": "못생기다", "pronunciation": "", "meaning": "Xấu xí" },
+        { "word": "똑똑하다", "pronunciation": "", "meaning": "Thông minh" },
+        { "word": "둔하다", "pronunciation": "", "meaning": "Chậm chạp" },
+        { "word": "기름지다", "pronunciation": "", "meaning": "Béo, ngậy" },
+        { "word": "담백하다", "pronunciation": "", "meaning": "Thanh đạm" },
+        { "word": "넓다", "pronunciation": "", "meaning": "Rộng" },
+        { "word": "좁다", "pronunciation": "", "meaning": "Hẹp" },
+        { "word": "비싸다", "pronunciation": "", "meaning": "Đắt" },
+        { "word": "싸다", "pronunciation": "", "meaning": "Rẻ" }
+      ]
+    },
+    {
+      "name": "Chủ đề 16: Nhà ở (집)",
+      "words": [
+        { "word": "집", "pronunciation": "jip", "meaning": "Nhà" },
+        { "word": "아파트", "pronunciation": "apateu", "meaning": "Căn hộ" },
+        { "word": "방", "pronunciation": "bang", "meaning": "Phòng" },
+        { "word": "부엌", "pronunciation": "bueok", "meaning": "Nhà bếp" },
+        {
+          "word": "화장실",
+          "pronunciation": "hwajangsil",
+          "meaning": "Phòng tắm"
+        },
+        { "word": "거실", "pronunciation": "geosil", "meaning": "Phòng khách" },
+        { "word": "침실", "pronunciation": "chimsil", "meaning": "Phòng ngủ" },
+        { "word": "현관", "pronunciation": "hyeongwan", "meaning": "Lối vào" },
+        { "word": "대문", "pronunciation": "daemun", "meaning": "Cổng lớn" },
+        { "word": "창문", "pronunciation": "changmun", "meaning": "Cửa sổ" },
+        { "word": "문", "pronunciation": "mun", "meaning": "Cửa" },
+        { "word": "마당", "pronunciation": "madang", "meaning": "Sân" },
+        { "word": "테라스", "pronunciation": "teraseu", "meaning": "Hiên" },
+        { "word": "계단", "pronunciation": "gyedan", "meaning": "Cầu thang" },
+        { "word": "지하", "pronunciation": "jiha", "meaning": "Tầng hầm" },
+        { "word": "옷장", "pronunciation": "otjang", "meaning": "Tủ quần áo" },
+        {
+          "word": "냉장고",
+          "pronunciation": "naengjanggo",
+          "meaning": "Tủ lạnh"
+        },
+        {
+          "word": "전자레인지",
+          "pronunciation": "jeonjareinji",
+          "meaning": "Lò vi sóng"
+        },
+        { "word": "소파", "pronunciation": "sopa", "meaning": "Ghế sofa" },
+        {
+          "word": "책상",
+          "pronunciation": "chaeksang",
+          "meaning": "Bàn học / bàn làm việc"
+        },
+        { "word": "의자", "pronunciation": "uija", "meaning": "Ghế" },
+        { "word": "전등", "pronunciation": "jeondeung", "meaning": "Đèn" },
+        { "word": "벽", "pronunciation": "byeok", "meaning": "Tường" },
+        { "word": "바닥", "pronunciation": "badak", "meaning": "Sàn" },
+        {
+          "word": "주차장",
+          "pronunciation": "juchajang",
+          "meaning": "Bãi đậu xe"
+        },
+        { "word": "가구", "pronunciation": "gagu", "meaning": "Đồ nội thất" },
+        { "word": "전기", "pronunciation": "jeongi", "meaning": "Điện" },
+        {
+          "word": "수도",
+          "pronunciation": "sudo",
+          "meaning": "Nước (máy nước)"
+        },
+        { "word": "난방", "pronunciation": "nanbang", "meaning": "Sưởi ấm" },
+        { "word": "에어컨", "pronunciation": "eeokeon", "meaning": "Điều hòa" },
+        {
+          "word": "냉난방",
+          "pronunciation": "naengnanbang",
+          "meaning": "Hệ thống điều hòa và sưởi"
+        },
+        {
+          "word": "인테리어",
+          "pronunciation": "interieo",
+          "meaning": "Trang trí nội thất"
+        },
+        { "word": "테이블", "pronunciation": "teibeul", "meaning": "Bàn ăn" },
+        { "word": "선반", "pronunciation": "seonban", "meaning": "Kệ / giá" },
+        { "word": "청소", "pronunciation": "cheongso", "meaning": "Dọn dẹp" },
+        { "word": "빨래", "pronunciation": "ppallae", "meaning": "Giặt giũ" },
+        { "word": "세탁기", "pronunciation": "setakgi", "meaning": "Máy giặt" },
+        {
+          "word": "청소기",
+          "pronunciation": "cheongsogi",
+          "meaning": "Máy hút bụi"
+        },
+        { "word": "가스", "pronunciation": "gaseu", "meaning": "Gas" },
+        {
+          "word": "보일러",
+          "pronunciation": "boilleo",
+          "meaning": "Nồi hơi / hệ thống sưởi nước"
+        }
       ]
     }
   ]
