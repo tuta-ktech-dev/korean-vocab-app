@@ -123,6 +123,17 @@ class _StudyScreenState extends State<StudyScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            if (vocab.pronunciation != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                '[${vocab.pronunciation}]',
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: CupertinoColors.systemBlue,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             CupertinoButton(
               onPressed: () => _speak(vocab.word),

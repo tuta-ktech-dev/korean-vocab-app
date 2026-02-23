@@ -29,7 +29,7 @@ class DatabaseHelper {
     
     return await openDatabase(
       path,
-      version: 5,
+      version: 6, // Added pronunciation field
       onCreate: _createTables,
       onUpgrade: _onUpgrade,
     );
@@ -50,6 +50,7 @@ class DatabaseHelper {
       CREATE TABLE vocabularies (
         id TEXT PRIMARY KEY,
         word TEXT NOT NULL,
+        pronunciation TEXT,
         meaning TEXT NOT NULL,
         example TEXT,
         example_meaning TEXT,
@@ -94,8 +95,9 @@ class DatabaseHelper {
       await _addColumnIfNotExists(db, 'vocabularies', 'note', 'TEXT');
     }
     
-    if (oldVersion < 5) {
-      // Future migrations go here
+    if (oldVersion < 6) {
+      // Added pronunciation field
+      await _addColumnIfNotExists(db, 'vocabularies', 'pronunciation', 'TEXT');
     }
   }
   

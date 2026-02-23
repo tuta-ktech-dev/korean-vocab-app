@@ -16,6 +16,7 @@ class AddVocabScreen extends StatefulWidget {
 
 class _AddVocabScreenState extends State<AddVocabScreen> {
   final _wordController = TextEditingController();
+  final _pronunciationController = TextEditingController();
   final _meaningController = TextEditingController();
   final _exampleController = TextEditingController();
   final _exampleMeaningController = TextEditingController();
@@ -25,6 +26,7 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
   @override
   void dispose() {
     _wordController.dispose();
+    _pronunciationController.dispose();
     _meaningController.dispose();
     _exampleController.dispose();
     _exampleMeaningController.dispose();
@@ -57,6 +59,12 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
               CupertinoTextField(
                 controller: _wordController,
                 placeholder: 'Từ tiếng Hàn (vd: 사과)',
+                padding: const EdgeInsets.all(12),
+              ),
+              const SizedBox(height: 12),
+              CupertinoTextField(
+                controller: _pronunciationController,
+                placeholder: 'Phiên âm (vd: sa-gwa)',
                 padding: const EdgeInsets.all(12),
               ),
               const SizedBox(height: 12),
@@ -137,6 +145,9 @@ class _AddVocabScreenState extends State<AddVocabScreen> {
 
     context.read<VocabCubit>().addVocab(
       word: word,
+      pronunciation: _pronunciationController.text.trim().isEmpty
+          ? null
+          : _pronunciationController.text.trim(),
       meaning: meaning,
       example: _exampleController.text.trim().isEmpty
           ? null

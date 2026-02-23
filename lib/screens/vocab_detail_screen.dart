@@ -86,6 +86,17 @@ class _VocabDetailScreenState extends State<VocabDetailScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          if (widget.vocab.pronunciation != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              '[${widget.vocab.pronunciation}]',
+              style: const TextStyle(
+                fontSize: 20,
+                color: CupertinoColors.systemBlue,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
           const SizedBox(height: 12),
           Text(
             widget.vocab.meaning,

@@ -1,6 +1,7 @@
 class Vocab {
   final String id;
   final String word;
+  final String? pronunciation; // Phiên âm (e.g., "sa-gwa" for 사과)
   final String meaning;
   final String? example;
   final String? exampleMeaning;
@@ -10,18 +11,19 @@ class Vocab {
   final DateTime createdAt;
   
   // SRS Fields
-  int familiarity;      // 0=New, 1=Learning, 2=Review, 3=Mastered
-  int streak;           // Số lần đúng liên tiếp
-  DateTime? nextReview; // Lần ôn tiếp theo
-  int totalReviews;     // Tổng số lần ôn
-  int correctCount;     // Số lần đúng
-  double accuracy;      // % đúng
+  int familiarity;
+  int streak;
+  DateTime? nextReview;
+  int totalReviews;
+  int correctCount;
+  double accuracy;
   DateTime? lastReviewed;
-  int timeSpent;        // Giây đã học
+  int timeSpent;
 
   Vocab({
     required this.id,
     required this.word,
+    this.pronunciation,
     required this.meaning,
     this.example,
     this.exampleMeaning,
@@ -43,6 +45,7 @@ class Vocab {
     return {
       'id': id,
       'word': word,
+      'pronunciation': pronunciation,
       'meaning': meaning,
       'example': example,
       'example_meaning': exampleMeaning,
@@ -65,6 +68,7 @@ class Vocab {
     return Vocab(
       id: map['id'] as String,
       word: map['word'] as String,
+      pronunciation: map['pronunciation'] as String?,
       meaning: map['meaning'] as String,
       example: map['example'] as String?,
       exampleMeaning: map['example_meaning'] as String?,
@@ -90,6 +94,7 @@ class Vocab {
   Vocab copyWith({
     String? id,
     String? word,
+    String? pronunciation,
     String? meaning,
     String? example,
     String? exampleMeaning,
@@ -109,6 +114,7 @@ class Vocab {
     return Vocab(
       id: id ?? this.id,
       word: word ?? this.word,
+      pronunciation: pronunciation ?? this.pronunciation,
       meaning: meaning ?? this.meaning,
       example: example ?? this.example,
       exampleMeaning: exampleMeaning ?? this.exampleMeaning,

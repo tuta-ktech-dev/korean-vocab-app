@@ -27,6 +27,7 @@ class VocabCubit extends Cubit<VocabState> {
 
   Future<void> addVocab({
     required String word,
+    String? pronunciation,
     required String meaning,
     String? example,
     String? exampleMeaning,
@@ -43,6 +44,7 @@ class VocabCubit extends Cubit<VocabState> {
       final vocab = Vocab(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         word: word,
+        pronunciation: pronunciation,
         meaning: meaning,
         example: example,
         exampleMeaning: exampleMeaning,

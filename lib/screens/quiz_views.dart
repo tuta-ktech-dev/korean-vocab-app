@@ -78,11 +78,19 @@ class FlashcardViewState extends State<FlashcardView> {
       children: [
         Text(
           widget.vocab.word,
-          style: const TextStyle(
-            fontSize: 48,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
         ),
+        if (widget.vocab.pronunciation != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            '[${widget.vocab.pronunciation}]',
+            style: const TextStyle(
+              fontSize: 18,
+              color: CupertinoColors.systemBlue,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
         const SizedBox(height: 24),
         CupertinoButton(
           onPressed: () => _speak(widget.vocab.word),
@@ -91,10 +99,7 @@ class FlashcardViewState extends State<FlashcardView> {
         const SizedBox(height: 32),
         const Text(
           'Chạm để xem đáp án',
-          style: TextStyle(
-            color: CupertinoColors.systemGrey,
-            fontSize: 16,
-          ),
+          style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 16),
         ),
       ],
     );
@@ -192,18 +197,23 @@ class MCQView extends StatelessWidget {
         children: [
           Text(
             vocab.word,
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
+          if (vocab.pronunciation != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              '[${vocab.pronunciation}]',
+              style: const TextStyle(
+                fontSize: 16,
+                color: CupertinoColors.systemBlue,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
           const SizedBox(height: 8),
           const Text(
             'nghĩa là gì?',
-            style: TextStyle(
-              fontSize: 16,
-              color: CupertinoColors.systemGrey,
-            ),
+            style: TextStyle(fontSize: 16, color: CupertinoColors.systemGrey),
           ),
           const SizedBox(height: 32),
           ...options.map((option) => _buildOption(option)),
@@ -214,7 +224,7 @@ class MCQView extends StatelessWidget {
 
   Widget _buildOption(String option) {
     final isCorrect = option == vocab.meaning;
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       width: double.infinity,
@@ -224,10 +234,7 @@ class MCQView extends StatelessWidget {
         onPressed: () => onAnswer(isCorrect),
         child: Text(
           option,
-          style: const TextStyle(
-            fontSize: 18,
-            color: CupertinoColors.label,
-          ),
+          style: const TextStyle(fontSize: 18, color: CupertinoColors.label),
         ),
       ),
     );
@@ -262,15 +269,13 @@ class TypingViewState extends State<TypingView> {
 
   void _checkAnswer() {
     final input = _controller.text.trim().toLowerCase();
-    final correct = widget.isReverse 
+    final correct = widget.isReverse
         ? widget.vocab.word.toLowerCase()
         : widget.vocab.meaning.toLowerCase();
-    
-    // Check exact match hoặc contains
-    final isCorrect = input == correct || 
-        correct.contains(input) || 
-        input.contains(correct);
-    
+
+    // Check exact match (trimmed and lowercase)
+    final isCorrect = input == correct;
+
     widget.onAnswer(isCorrect);
   }
 
@@ -283,12 +288,20 @@ class TypingViewState extends State<TypingView> {
         children: [
           Text(
             widget.isReverse ? widget.vocab.meaning : widget.vocab.word,
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
+          if (!widget.isReverse && widget.vocab.pronunciation != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              '[${widget.vocab.pronunciation}]',
+              style: const TextStyle(
+                fontSize: 16,
+                color: CupertinoColors.systemBlue,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
           const SizedBox(height: 8),
           Text(
             widget.isReverse ? 'Gõ từ tiếng Hàn' : 'Gõ nghĩa tiếng Việt',
@@ -315,9 +328,7 @@ class TypingViewState extends State<TypingView> {
               ),
               child: Text(
                 'Gợi ý: ${widget.isReverse ? widget.vocab.word : widget.vocab.meaning}',
-                style: const TextStyle(
-                  color: CupertinoColors.systemBrown,
-                ),
+                style: const TextStyle(color: CupertinoColors.systemBrown),
               ),
             ),
           const SizedBox(height: 24),
