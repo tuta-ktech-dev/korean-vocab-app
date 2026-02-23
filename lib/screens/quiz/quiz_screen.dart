@@ -86,7 +86,7 @@ class QuizScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           const Text(
-            'Bạn đã hoàn thành tất cả từ vựng! 🎉',
+            'Bạn đã hoàn thành tất cả từ vựng!',
             style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 14),
           ),
         ],
@@ -248,7 +248,7 @@ class QuizScreen extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            isCorrect ? 'Chính xác! 🎉' : 'Chưa chính xác',
+            isCorrect ? 'Chính xác!' : 'Chưa chính xác',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

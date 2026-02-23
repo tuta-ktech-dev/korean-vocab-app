@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/notification_settings.dart';
+import '../../core/services/notification_service.dart';
 
 class NotificationSettingsScreen extends StatefulWidget {
   const NotificationSettingsScreen({super.key});
@@ -12,6 +15,32 @@ class NotificationSettingsScreen extends StatefulWidget {
 class _NotificationSettingsScreenState
     extends State<NotificationSettingsScreen> {
   NotificationSettings _settings = NotificationSettings();
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSettings();
+  }
+
+  Future<void> _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? settingsJson = prefs.getString('notification_settings');
+
+    if (settingsJson != null) {
+      try {
+        final Map<String, dynamic> settingsMap = json.decode(settingsJson);
+        setState(() {
+          _settings = NotificationSettings.fromMap(settingsMap);
+        });
+      } catch (e) {
+        // Ignore parsing errors and fallback to defaults
+      }
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,128 +49,145 @@ class _NotificationSettingsScreenState
         middle: Text('Thông báo học tập'),
       ),
       child: SafeArea(
-        child: ListView(
-          children: [
-            // Master toggle
-            _buildMasterToggle(),
+        child: _isLoading
+            ? const Center(child: CupertinoActivityIndicator())
+            : ListView(
+                children: [
+                  // Master toggle
+                  _buildMasterToggle(),
 
-            if (_settings.enabled) ...[
-              // SRS Reminder Section
-              _buildSectionHeader('🔔 Nhắc ôn tập (SRS)'),
-              _buildToggleTile(
-                title: 'Bật nhắc ôn tập',
-                subtitle: 'Thông báo khi có từ đến hạn',
-                value: _settings.srsReminderEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(srsReminderEnabled: value);
-                  });
-                },
-              ),
-              if (_settings.srsReminderEnabled) ...[
-                _buildTimePickerTile(
-                  title: 'Giờ nhắc',
-                  hour: _settings.srsReminderHour,
-                  minute: _settings.srsReminderMinute,
-                  onChanged: (hour, minute) {
-                    setState(() {
-                      _settings = _settings.copyWith(
-                        srsReminderHour: hour,
-                        srsReminderMinute: minute,
-                      );
-                    });
-                  },
-                ),
-              ],
+                  if (_settings.enabled) ...[
+                    // SRS Reminder Section
+                    _buildSectionHeaderWithIcon(
+                      icon: CupertinoIcons.clock_fill,
+                      title: 'Nhắc ôn tập (SRS)',
+                    ),
+                    _buildToggleTile(
+                      title: 'Bật nhắc ôn tập',
+                      subtitle: 'Thông báo khi có từ đến hạn',
+                      value: _settings.srsReminderEnabled,
+                      onChanged: (value) {
+                        setState(() {
+                          _settings = _settings.copyWith(
+                            srsReminderEnabled: value,
+                          );
+                        });
+                      },
+                    ),
+                    if (_settings.srsReminderEnabled) ...[
+                      _buildTimePickerTile(
+                        title: 'Giờ nhắc',
+                        hour: _settings.srsReminderHour,
+                        minute: _settings.srsReminderMinute,
+                        onChanged: (hour, minute) {
+                          setState(() {
+                            _settings = _settings.copyWith(
+                              srsReminderHour: hour,
+                              srsReminderMinute: minute,
+                            );
+                          });
+                        },
+                      ),
+                    ],
 
-              // Random Word Section
-              _buildSectionHeader('📚 Từ ngẫu nhiên'),
-              _buildToggleTile(
-                title: 'Bật từ ngẫu nhiên',
-                subtitle: 'Hiển thị từ vựng ngẫu nhiên trong ngày',
-                value: _settings.randomWordEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(randomWordEnabled: value);
-                  });
-                },
-              ),
-              if (_settings.randomWordEnabled) ...[
-                _buildSliderTile(
-                  title: 'Số từ/ngày',
-                  value: _settings.randomWordCount.toDouble(),
-                  min: 1,
-                  max: 5,
-                  divisions: 4,
-                  onChanged: (value) {
-                    setState(() {
-                      _settings = _settings.copyWith(
-                        randomWordCount: value.toInt(),
-                      );
-                    });
-                  },
-                ),
-                _buildRangeTile(
-                  title: 'Khung giờ',
-                  startHour: _settings.randomWordStartHour,
-                  endHour: _settings.randomWordEndHour,
-                  onChanged: (start, end) {
-                    setState(() {
-                      _settings = _settings.copyWith(
-                        randomWordStartHour: start,
-                        randomWordEndHour: end,
-                      );
-                    });
-                  },
-                ),
-              ],
+                    // Random Word Section
+                    _buildSectionHeaderWithIcon(
+                      icon: CupertinoIcons.shuffle,
+                      title: 'Từ ngẫu nhiên',
+                    ),
+                    _buildToggleTile(
+                      title: 'Bật từ ngẫu nhiên',
+                      subtitle: 'Hiển thị từ vựng ngẫu nhiên trong ngày',
+                      value: _settings.randomWordEnabled,
+                      onChanged: (value) {
+                        setState(() {
+                          _settings = _settings.copyWith(
+                            randomWordEnabled: value,
+                          );
+                        });
+                      },
+                    ),
+                    if (_settings.randomWordEnabled) ...[
+                      _buildSliderTile(
+                        title: 'Số từ/ngày',
+                        value: _settings.randomWordCount.toDouble(),
+                        min: 1,
+                        max: 5,
+                        divisions: 4,
+                        onChanged: (value) {
+                          setState(() {
+                            _settings = _settings.copyWith(
+                              randomWordCount: value.toInt(),
+                            );
+                          });
+                        },
+                      ),
+                      _buildRangeTile(
+                        title: 'Khung giờ',
+                        startHour: _settings.randomWordStartHour,
+                        endHour: _settings.randomWordEndHour,
+                        onChanged: (start, end) {
+                          setState(() {
+                            _settings = _settings.copyWith(
+                              randomWordStartHour: start,
+                              randomWordEndHour: end,
+                            );
+                          });
+                        },
+                      ),
+                    ],
 
-              // Options Section
-              _buildSectionHeader('⚙️ Tùy chọn'),
-              _buildToggleTile(
-                title: 'Hiện phiên âm',
-                subtitle: 'Hiển thị pronunciation trong thông báo',
-                value: _settings.showPronunciation,
-                onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(showPronunciation: value);
-                  });
-                },
-              ),
-              _buildToggleTile(
-                title: 'Âm thanh',
-                subtitle: 'Phát âm thanh khi nhận thông báo',
-                value: _settings.playSound,
-                onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(playSound: value);
-                  });
-                },
-              ),
-              _buildToggleTile(
-                title: 'Rung',
-                subtitle: 'Rung khi nhận thông báo',
-                value: _settings.vibrate,
-                onChanged: (value) {
-                  setState(() {
-                    _settings = _settings.copyWith(vibrate: value);
-                  });
-                },
-              ),
-            ],
+                    // Options Section
+                    _buildSectionHeaderWithIcon(
+                      icon: CupertinoIcons.settings,
+                      title: 'Tùy chọn',
+                    ),
+                    _buildToggleTile(
+                      title: 'Hiện phiên âm',
+                      subtitle: 'Hiển thị pronunciation trong thông báo',
+                      value: _settings.showPronunciation,
+                      onChanged: (value) {
+                        setState(() {
+                          _settings = _settings.copyWith(
+                            showPronunciation: value,
+                          );
+                        });
+                      },
+                    ),
+                    _buildToggleTile(
+                      title: 'Âm thanh',
+                      subtitle: 'Phát âm thanh khi nhận thông báo',
+                      value: _settings.playSound,
+                      onChanged: (value) {
+                        setState(() {
+                          _settings = _settings.copyWith(playSound: value);
+                        });
+                      },
+                    ),
+                    _buildToggleTile(
+                      title: 'Rung',
+                      subtitle: 'Rung khi nhận thông báo',
+                      value: _settings.vibrate,
+                      onChanged: (value) {
+                        setState(() {
+                          _settings = _settings.copyWith(vibrate: value);
+                        });
+                      },
+                    ),
+                  ],
 
-            const SizedBox(height: 32),
+                  const SizedBox(height: 32),
 
-            // Save button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CupertinoButton.filled(
-                onPressed: _saveSettings,
-                child: const Text('Lưu cài đặt'),
+                  // Save button
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: CupertinoButton.filled(
+                      onPressed: _saveSettings,
+                      child: const Text('Lưu cài đặt'),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -200,16 +246,26 @@ class _NotificationSettingsScreenState
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeaderWithIcon({
+    required IconData icon,
+    required String title,
+  }) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: CupertinoColors.systemGrey,
-        ),
+      child: Row(
+        children: [
+          Icon(icon, size: 14, color: CupertinoColors.systemGrey),
+          const SizedBox(width: 6),
+          Text(
+            title.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: CupertinoColors.systemGrey,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -374,10 +430,21 @@ class _NotificationSettingsScreenState
     );
   }
 
-  void _saveSettings() {
-    // TODO: Save to SharedPreferences
-    // TODO: Reschedule notifications
+  Future<void> _saveSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final settingsMap = _settings.toMap();
+    await prefs.setString('notification_settings', json.encode(settingsMap));
 
+    if (!_settings.enabled) {
+      // Tắt hết thông báo
+      final notificationService = NotificationService();
+      await notificationService.cancelAll();
+    } else {
+      // TODO: Tích hợp logic reschedule ở App Lifecycle hoặc Vocab update,
+      // vì screen này không fetch danh sách từ vựng.
+    }
+
+    if (!mounted) return;
     showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(

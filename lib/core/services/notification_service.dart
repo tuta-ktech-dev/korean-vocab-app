@@ -43,7 +43,7 @@ class NotificationService {
     _initialized = true;
   }
 
-  /// 1. 🔔 SRS Reminder - Nhắc từ đến hạn
+  /// SRS Reminder - Nhắc từ đến hạn
   Future<void> scheduleSRSReminder({
     required int dueCount,
     required String firstWord,
@@ -58,7 +58,7 @@ class NotificationService {
 
     await _notifications.zonedSchedule(
       id: 1,
-      title: '🔔 $dueCount từ cần ôn tập',
+      title: '$dueCount từ cần ôn tập',
       body: firstWord,
       scheduledDate: tz.TZDateTime.from(scheduledTime, tz.local),
       notificationDetails: NotificationDetails(
@@ -80,7 +80,7 @@ class NotificationService {
     );
   }
 
-  /// 2. 📚 Random Word - Từ ngẫu nhiên
+  /// Random Word - Từ ngẫu nhiên
   Future<void> scheduleRandomWord({
     required String word,
     required String? pronunciation,
@@ -90,7 +90,7 @@ class NotificationService {
   }) async {
     await _createNotificationChannel();
 
-    final title = '📚 $word';
+    final title = word;
     final body = pronunciation != null ? '[$pronunciation]\n$meaning' : meaning;
 
     await _notifications.zonedSchedule(

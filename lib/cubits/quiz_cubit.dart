@@ -77,7 +77,7 @@ class QuizCubit extends Cubit<QuizState> {
       if (newVocabs.isEmpty) {
         emit(
           const QuizNoVocabs(
-            'Bạn đã học hết tất cả từ vựng! 🎉\nHãy ôn tập để không quên nhé.',
+            'Bạn đã học hết tất cả từ vựng!\nHãy ôn tập để không quên nhé.',
           ),
         );
         return;

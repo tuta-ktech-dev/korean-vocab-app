@@ -18,28 +18,28 @@ class MainTabScreen extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Icon(CupertinoIcons.house_fill),
             ),
             label: '',
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Icon(CupertinoIcons.exclamationmark_triangle_fill),
             ),
             label: '',
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Icon(CupertinoIcons.chart_bar_fill),
             ),
             label: '',
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Icon(CupertinoIcons.settings),
             ),
             label: '',

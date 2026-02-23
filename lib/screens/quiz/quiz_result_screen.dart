@@ -16,22 +16,22 @@ class QuizResultScreen extends StatelessWidget {
     Color color;
 
     if (accuracy >= 0.9) {
-      title = 'Xuất sắc! 🌟';
+      title = 'Xuất sắc!';
       subtitle = 'Bạn đã thuộc gần hết!';
       icon = CupertinoIcons.star_fill;
       color = CupertinoColors.systemYellow;
     } else if (accuracy >= 0.7) {
-      title = 'Rất tốt! 👍';
+      title = 'Rất tốt!';
       subtitle = 'Tiếp tục phát huy!';
       icon = CupertinoIcons.hand_thumbsup_fill;
       color = CupertinoColors.systemGreen;
     } else if (accuracy >= 0.5) {
-      title = 'Khá tốt! 💪';
+      title = 'Khá tốt!';
       subtitle = 'Cần ôn thêm một chút';
       icon = CupertinoIcons.rocket_fill;
       color = CupertinoColors.systemOrange;
     } else {
-      title = 'Cố lên! 🎯';
+      title = 'Cố lên!';
       subtitle = 'Luyện tập thêm để cải thiện';
       icon = CupertinoIcons.arrow_counterclockwise;
       color = CupertinoColors.systemRed;
