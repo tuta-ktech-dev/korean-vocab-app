@@ -14,19 +14,19 @@ class MainTabScreen extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.house_fill),
-            label: 'Trang chủ',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.exclamationmark_triangle_fill),
-            label: 'Ôn tập',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.chart_bar_fill),
-            label: 'Thống kê',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.settings),
-            label: 'Cài đặt',
+            label: '',
           ),
         ],
       ),

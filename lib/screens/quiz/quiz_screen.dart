@@ -234,9 +234,11 @@ class QuizScreen extends StatelessWidget {
     final nextReviewText = _formatNextReview(state.nextReview);
 
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
             isCorrect
@@ -260,6 +262,7 @@ class QuizScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Container(
+            width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: CupertinoColors.systemGrey6,
