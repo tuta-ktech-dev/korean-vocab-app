@@ -7,6 +7,7 @@ import 'category_detail_screen.dart';
 import 'add_category_screen.dart';
 import 'study_screen.dart';
 import 'quiz_setup_screen.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,6 +17,18 @@ class HomeScreen extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: const Text('Từ vựng tiếng Hàn'),
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => const SettingsScreen(),
+              ),
+            );
+          },
+          child: const Icon(CupertinoIcons.settings),
+        ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -30,44 +43,11 @@ class HomeScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            _buildLogo(),
             _buildStudyButton(context),
             const SizedBox(height: 16),
-            Expanded(
-              child: _buildCategoryList(),
-            ),
+            Expanded(child: _buildCategoryList()),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildLogo() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 8),
-      child: Column(
-        children: [
-          Image.asset(
-            'assets/images/logo.png',
-            height: 80,
-            width: 80,
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Từ vựng tiếng Hàn',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const Text(
-            'Học thông minh với SRS',
-            style: TextStyle(
-              fontSize: 12,
-              color: CupertinoColors.systemGrey,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -100,9 +80,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => const StudyScreen(),
-                ),
+                CupertinoPageRoute(builder: (context) => const StudyScreen()),
               );
             },
             child: const Row(
@@ -156,7 +134,10 @@ class HomeScreen extends StatelessWidget {
       leading: _buildCategoryImage(category),
       title: Text(category.name),
       subtitle: category.nameKorean != null
-          ? Text(category.nameKorean!, style: const TextStyle(color: CupertinoColors.systemGrey))
+          ? Text(
+              category.nameKorean!,
+              style: const TextStyle(color: CupertinoColors.systemGrey),
+            )
           : null,
       trailing: const CupertinoListTileChevron(),
       onTap: () {
@@ -196,9 +177,7 @@ class HomeScreen extends StatelessWidget {
   void _showAddCategory(BuildContext context) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => const AddCategoryScreen(),
-      ),
+      CupertinoPageRoute(builder: (context) => const AddCategoryScreen()),
     );
   }
 }
