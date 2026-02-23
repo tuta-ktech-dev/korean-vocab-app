@@ -25,7 +25,10 @@ class MainTabScreen extends StatelessWidget {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.settings),
+            icon: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Icon(CupertinoIcons.settings),
+            ),
             label: '',
           ),
         ],

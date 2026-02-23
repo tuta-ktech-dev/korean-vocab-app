@@ -297,9 +297,12 @@ class QuizScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 32),
-          CupertinoButton.filled(
-            onPressed: () => context.read<QuizCubit>().nextQuestion(),
-            child: const Text('Tiếp theo'),
+          SizedBox(
+            width: double.infinity,
+            child: CupertinoButton.filled(
+              onPressed: () => context.read<QuizCubit>().nextQuestion(),
+              child: const Text('Tiếp theo'),
+            ),
           ),
         ],
       ),
