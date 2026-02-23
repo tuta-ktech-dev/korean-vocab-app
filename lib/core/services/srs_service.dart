@@ -4,18 +4,18 @@ import '../../models/vocab.dart';
 class SRSService {
   // Intervals theo familiarity (ngày)
   static const List<Duration> _intervals = [
-    Duration(minutes: 10),   // 0: New - 10 phút
-    Duration(days: 1),       // 1: Learning - 1 ngày
-    Duration(days: 3),       // 2: Review - 3 ngày
-    Duration(days: 7),       // 3: Mastered cấp 1 - 1 tuần
-    Duration(days: 14),      // 4: Mastered cấp 2 - 2 tuần
-    Duration(days: 30),      // 5: Mastered cấp 3 - 1 tháng
+    Duration(minutes: 10), // 0: New - 10 phút
+    Duration(days: 1), // 1: Learning - 1 ngày
+    Duration(days: 3), // 2: Review - 3 ngày
+    Duration(days: 7), // 3: Mastered cấp 1 - 1 tuần
+    Duration(days: 14), // 4: Mastered cấp 2 - 2 tuần
+    Duration(days: 30), // 5: Mastered cấp 3 - 1 tháng
   ];
 
   /// Tính next review date dựa trên familiarity và streak
   DateTime calculateNextReview(Vocab vocab, QuizResult result) {
     final now = DateTime.now();
-    
+
     switch (result) {
       case QuizResult.correct:
         return _handleCorrect(vocab, now);
@@ -32,19 +32,19 @@ class SRSService {
     // Tăng streak và familiarity
     final newStreak = vocab.streak + 1;
     var newFamiliarity = vocab.familiarity;
-    
+
     // Tăng familiarity sau mỗi 2 lần đúng liên tiếp
     if (newStreak >= 2 && vocab.familiarity < 5) {
       newFamiliarity = vocab.familiarity + 1;
     }
-    
+
     // Tính interval với streak multiplier
     final baseInterval = _intervals[newFamiliarity.clamp(0, 5)];
     final multiplier = 1 + (newStreak * 0.3); // Mỗi streak tăng 30%
     final adjustedInterval = Duration(
       minutes: (baseInterval.inMinutes * multiplier).round(),
     );
-    
+
     return now.add(adjustedInterval);
   }
 
@@ -52,7 +52,7 @@ class SRSService {
     // Reset streak, giảm familiarity
     var newFamiliarity = vocab.familiarity - 1;
     if (newFamiliarity < 0) newFamiliarity = 0;
-    
+
     // Ôn lại sau 10 phút
     return now.add(const Duration(minutes: 10));
   }
@@ -74,12 +74,12 @@ class SRSService {
     if (attempts >= 2) {
       return QuizMode.flashcard;
     }
-    
+
     // Theo familiarity
     switch (vocab.familiarity) {
       case 0: // New
         return QuizMode.flashcard;
-      case 1: // Learning  
+      case 1: // Learning
         return QuizMode.mcq;
       case 2: // Review
         return attempts > 0 ? QuizMode.mcq : QuizMode.typing;
@@ -92,27 +92,33 @@ class SRSService {
     }
   }
 
-  /// Lấy danh sách từ cần ôn tập hôm nay
+  /// Lấy danh sách từ cần ôn tập hôm nay (chỉ từ đã học)
   List<Vocab> getDueVocabs(List<Vocab> allVocabs, {int limit = 20}) {
     final now = DateTime.now();
-    
+
     final dueVocabs = allVocabs.where((v) {
-      // Chưa học bao giờ
-      if (v.nextReview == null) return true;
-      // Đến hạn ôn
-      return v.nextReview!.isBefore(now);
+      // Bỏ qua từ chưa học bao giờ (totalReviews == 0)
+      if (v.totalReviews == 0) return false;
+      // Lấy từ đã học và đến hạn ôn
+      return v.nextReview == null || v.nextReview!.isBefore(now);
     }).toList();
-    
-    // Sắp xếp: Ưu tiên familiarity thấp (mới) và quá hạn lâu
+
+    // Sắp xếp: ưu tiên familiarity thấp và quá hạn lâu nhất
     dueVocabs.sort((a, b) {
       if (a.familiarity != b.familiarity) {
         return a.familiarity.compareTo(b.familiarity);
       }
-      return (a.nextReview ?? DateTime(2000))
-          .compareTo(b.nextReview ?? DateTime(2000));
+      return (a.nextReview ?? DateTime(2000)).compareTo(
+        b.nextReview ?? DateTime(2000),
+      );
     });
-    
+
     return dueVocabs.take(limit).toList();
+  }
+
+  /// Lấy danh sách từ chưa học (để giới thiệu lần đầu)
+  List<Vocab> getNewVocabs(List<Vocab> allVocabs, {int limit = 10}) {
+    return allVocabs.where((v) => v.totalReviews == 0).take(limit).toList();
   }
 
   /// Tính accuracy mới

@@ -5,7 +5,6 @@ import '../../cubits/vocab_cubit.dart';
 import '../../models/category.dart';
 import '../../models/vocab.dart';
 import '../quiz/quiz_setup_screen.dart';
-import '../study/study_screen.dart';
 import 'add_vocab_screen.dart';
 import 'edit_vocab_screen.dart';
 import 'vocab_detail_screen.dart';
@@ -90,9 +89,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: CupertinoColors.systemGrey6,
-        border: Border(
-          bottom: BorderSide(color: CupertinoColors.systemGrey5),
-        ),
+        border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,6 +113,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       CupertinoPageRoute(
                         builder: (context) => QuizSetupScreen(
                           categoryId: widget.category.id,
+                          mode: QuizSetupMode.learn,
                         ),
                       ),
                     );
@@ -123,9 +121,9 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(CupertinoIcons.bolt_fill, size: 18),
+                      Icon(CupertinoIcons.book_fill, size: 18),
                       SizedBox(width: 6),
-                      Text('Luyện tập'),
+                      Text('Học từ mới'),
                     ],
                   ),
                 ),
@@ -138,8 +136,9 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => StudyScreen(
+                        builder: (context) => QuizSetupScreen(
                           categoryId: widget.category.id,
+                          mode: QuizSetupMode.review,
                         ),
                       ),
                     );
@@ -147,9 +146,9 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(CupertinoIcons.book, size: 18),
+                      Icon(CupertinoIcons.bolt_fill, size: 18),
                       SizedBox(width: 6),
-                      Text('Flashcard'),
+                      Text('Ôn tập'),
                     ],
                   ),
                 ),

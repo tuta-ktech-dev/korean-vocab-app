@@ -8,14 +8,20 @@ import 'widgets/quiz_components.dart';
 class QuizScreen extends StatelessWidget {
   final String? categoryId;
   final int wordCount;
+  final bool isLearnMode;
 
-  const QuizScreen({super.key, this.categoryId, this.wordCount = 10});
+  const QuizScreen({
+    super.key,
+    this.categoryId,
+    this.wordCount = 10,
+    this.isLearnMode = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: const Text('Luyện tập'),
+        middle: Text(isLearnMode ? 'Học từ mới' : 'Ôn tập'),
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () => _confirmExit(context),
@@ -35,16 +41,7 @@ class QuizScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is QuizInitial) {
-              // Auto start
-              context.read<QuizCubit>().startSession(
-                categoryId: categoryId,
-                limit: wordCount,
-              );
-              return const Center(child: CupertinoActivityIndicator());
-            }
-
-            if (state is QuizLoading) {
+            if (state is QuizInitial || state is QuizLoading) {
               return const Center(child: CupertinoActivityIndicator());
             }
 
@@ -336,9 +333,9 @@ class QuizScreen extends StatelessWidget {
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-              context.read<QuizCubit>().reset();
+              Navigator.pop(context); // Close dialog
+              context.read<QuizCubit>().reset(); // Reset cubit first
+              Navigator.pop(context); // Then exit screen
             },
             child: const Text('Dừng'),
           ),

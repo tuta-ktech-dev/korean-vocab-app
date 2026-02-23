@@ -5,7 +5,6 @@ import '../../cubits/category_cubit.dart';
 import '../../models/category.dart';
 import '../vocab/category_detail_screen.dart';
 import '../vocab/add_category_screen.dart';
-import '../study/study_screen.dart';
 import '../quiz/quiz_setup_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,7 +29,7 @@ class HomeScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            _buildStudyButton(context),
+            _buildStudyButtons(context),
             const SizedBox(height: 16),
             Expanded(child: _buildCategoryList()),
           ],
@@ -39,44 +38,52 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStudyButton(BuildContext context) {
+  Widget _buildStudyButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Column(
+      child: Row(
         children: [
-          CupertinoButton.filled(
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const QuizSetupScreen(),
-                ),
-              );
-            },
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(CupertinoIcons.bolt_fill),
-                SizedBox(width: 8),
-                Text('Luyện tập thông minh'),
-              ],
+          Expanded(
+            child: CupertinoButton.filled(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) =>
+                        const QuizSetupScreen(mode: QuizSetupMode.learn),
+                  ),
+                );
+              },
+              child: const Column(
+                children: [
+                  Icon(CupertinoIcons.book_fill, size: 24),
+                  SizedBox(height: 4),
+                  Text('Học từ mới', style: TextStyle(fontSize: 13)),
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: 12),
-          CupertinoButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(builder: (context) => const StudyScreen()),
-              );
-            },
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(CupertinoIcons.book),
-                SizedBox(width: 8),
-                Text('Học flashcard'),
-              ],
+          const SizedBox(width: 12),
+          Expanded(
+            child: CupertinoButton.filled(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) =>
+                        const QuizSetupScreen(mode: QuizSetupMode.review),
+                  ),
+                );
+              },
+              child: const Column(
+                children: [
+                  Icon(CupertinoIcons.bolt_fill, size: 24),
+                  SizedBox(height: 4),
+                  Text('Ôn tập', style: TextStyle(fontSize: 13)),
+                ],
+              ),
             ),
           ),
         ],

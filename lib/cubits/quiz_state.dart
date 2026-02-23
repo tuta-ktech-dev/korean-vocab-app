@@ -13,12 +13,14 @@ class QuizLoading extends QuizState {}
 
 class QuizNoVocabs extends QuizState {
   final String message;
-  
+
   const QuizNoVocabs(this.message);
-  
+
   @override
   List<Object?> get props => [message];
 }
+
+// Thêm flag để phân biệt learn mode vs review mode trong QuizQuestion
 
 class QuizQuestion extends QuizState {
   final Vocab vocab;
@@ -26,7 +28,7 @@ class QuizQuestion extends QuizState {
   final QuizSession session;
   final List<String>? options; // Cho MCQ
   final QuizProgress progress;
-  
+
   const QuizQuestion({
     required this.vocab,
     required this.mode,
@@ -34,7 +36,7 @@ class QuizQuestion extends QuizState {
     this.options,
     required this.progress,
   });
-  
+
   @override
   List<Object?> get props => [vocab, mode, session, options, progress];
 }
@@ -43,31 +45,31 @@ class QuizFeedback extends QuizState {
   final Vocab vocab;
   final QuizResult result;
   final DateTime nextReview;
-  
+
   const QuizFeedback({
     required this.vocab,
     required this.result,
     required this.nextReview,
   });
-  
+
   @override
   List<Object?> get props => [vocab, result, nextReview];
 }
 
 class QuizComplete extends QuizState {
   final QuizSession session;
-  
+
   const QuizComplete(this.session);
-  
+
   @override
   List<Object?> get props => [session];
 }
 
 class QuizError extends QuizState {
   final String message;
-  
+
   const QuizError(this.message);
-  
+
   @override
   List<Object?> get props => [message];
 }
