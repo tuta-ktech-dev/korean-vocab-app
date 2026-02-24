@@ -441,10 +441,13 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _exportData(BuildContext context) async {
+    // Lưu context trước khi async
+    final currentContext = context;
+    
     showCupertinoDialog(
-      context: context,
+      context: currentContext,
       barrierDismissible: false,
-      builder: (context) => const CupertinoAlertDialog(
+      builder: (dialogContext) => const CupertinoAlertDialog(
         title: Text('Đang xuất...'),
         content: Padding(
           padding: EdgeInsets.all(16),
@@ -463,16 +466,29 @@ class SettingsScreen extends StatelessWidget {
       final file = File('${tempDir.path}/$fileName');
       await file.writeAsString(jsonString);
 
-      if (context.mounted) Navigator.pop(context);
+      // Đóng loading dialog trước khi share
+      if (currentContext.mounted) {
+        Navigator.of(currentContext, rootNavigator: true).pop();
+      }
 
-      await Share.shareXFiles([
-        XFile(file.path),
-      ], subject: 'Backup từ vựng tiếng Hàn');
+      // Delay nhỏ để đảm bảo dialog đã đóng
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      // Share - không cần check mounted vì share mở activity riêng
+      await Share.shareXFiles(
+        [XFile(file.path)],
+        subject: 'Backup từ vựng tiếng Hàn',
+        text: 'Dữ liệu backup từ vựng tiếng Hàn',
+      );
     } catch (e) {
-      if (context.mounted) Navigator.pop(context);
-      if (context.mounted) {
+      // Đảm bảo đóng dialog nếu còn mở
+      if (currentContext.mounted) {
+        Navigator.of(currentContext, rootNavigator: true).pop();
+      }
+      
+      if (currentContext.mounted) {
         showCupertinoDialog(
-          context: context,
+          context: currentContext,
           builder: (context) => CupertinoAlertDialog(
             title: const Text('Lỗi'),
             content: Text('Không thể xuất dữ liệu: $e'),
